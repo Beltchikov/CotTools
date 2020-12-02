@@ -27,10 +27,11 @@ namespace CotTools
 
         private void panFile_Drop(object sender, DragEventArgs e)
         {
-            if(e.Data.GetDataPresent(DataFormats.FileDrop))
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 lblFile.Content = files[0];
+                Excel.Process(files[0]);
             }
         }
     }
