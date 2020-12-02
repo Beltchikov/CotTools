@@ -31,7 +31,9 @@ namespace CotTools
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 lblFile.Content = files[0];
-                Excel.ProcessForex(files[0]);
+                int columnIndex = Convert.ToInt32(txtColumnIndex.Text);
+
+                Excel.ProcessForexNet(files[0], columnIndex);
             }
         }
     

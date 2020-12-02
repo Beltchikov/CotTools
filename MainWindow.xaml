@@ -53,7 +53,7 @@
                         x:Name="panControlsNet">
                 <Label VerticalAlignment="Center">
                     Column 1 Index:</Label>
-                <TextBox Text="1" 
+                <TextBox Text="3" 
                      VerticalAlignment="Center"
                      TextAlignment="Center"
                      Width="30"

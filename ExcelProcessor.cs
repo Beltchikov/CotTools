@@ -8,16 +8,31 @@ namespace CotTools
 {
     public class Excel
     {
-        public static void ProcessForex(string fileWithPath)
+        public static void ProcessForexNet(string fileWithPath, int columnIndex)
         {
             ForexWorkbook forexWorkbook = new ForexWorkbook(fileWithPath);
 
+            // Validate
             string message;
-            if((message = forexWorkbook.Validate()) != string.Empty)
+            if ((message = forexWorkbook.Validate()) != string.Empty)
             {
                 MessageBox.Show(message);
             }
 
+            //
+            Cells cellsEur = forexWorkbook.WorksheetEur.Cells;
+            int rowCountEur = cellsEur.MaxDataRow;
+            for (int row = 1; row <= rowCountEur; row++) 
+            {
+                int valueEur = cellsEur[row, columnIndex].Value.ToNetValue();
+                int valueAud = forexWorkbook.WorksheetAud.Cells[row, columnIndex].Value.ToNetValue();
+                int valueCad = forexWorkbook.WorksheetCad.Cells[row, columnIndex].Value.ToNetValue();
+                int valueChf = forexWorkbook.WorksheetChf.Cells[row, columnIndex].Value.ToNetValue();
+                int valueGbp = forexWorkbook.WorksheetGbp.Cells[row, columnIndex].Value.ToNetValue();
+                int valueJpy = forexWorkbook.WorksheetJpy.Cells[row, columnIndex].Value.ToNetValue();
+
+                // TODO Best & worst. Inversion vor Dealer
+            }
 
         }
 

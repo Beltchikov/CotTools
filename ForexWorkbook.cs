@@ -53,5 +53,6 @@ namespace CotTools
         public Worksheet WorksheetChf => _workbook.Worksheets[Forex.CHF];
         public Worksheet WorksheetGbp => _workbook.Worksheets[Forex.GBP];
         public Worksheet WorksheetJpy => _workbook.Worksheets[Forex.JPY];
+
     }
 }
