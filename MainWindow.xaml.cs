@@ -31,7 +31,7 @@ namespace CotTools
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 lblFile.Content = files[0];
-                Excel.Process(files[0]);
+                Excel.ProcessForex(files[0]);
             }
         }
     }

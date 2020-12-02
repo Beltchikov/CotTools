@@ -2,12 +2,56 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace CotTools
 {
     public class Excel
     {
-        public static void Process(string fileWithPath)
+        public static void ProcessForex(string fileWithPath)
+        {
+            Workbook wb = new Workbook(fileWithPath);
+
+            Worksheet worksheetEur = wb.Worksheets[Forex.EUR];
+            if (worksheetEur == null)
+            {
+                MessageBox.Show($"Worksheet {Forex.EUR} missing");
+                return;
+            }
+            Worksheet worksheetAud = wb.Worksheets[Forex.AUD];
+            if (worksheetAud == null)
+            {
+                MessageBox.Show($"Worksheet {Forex.AUD} missing");
+                return;
+            }
+            Worksheet worksheetCad = wb.Worksheets[Forex.CAD];
+            if (worksheetCad == null)
+            {
+                MessageBox.Show($"Worksheet {Forex.CAD} missing");
+                return;
+            }
+            Worksheet worksheetChf = wb.Worksheets[Forex.CHF];
+            if (worksheetChf == null)
+            {
+                MessageBox.Show($"Worksheet {Forex.CHF} missing");
+                return;
+            }
+            Worksheet worksheetGbp = wb.Worksheets[Forex.GBP];
+            if (worksheetGbp == null)
+            {
+                MessageBox.Show($"Worksheet {Forex.GBP} missing");
+                return;
+            }
+            Worksheet worksheetJpy = wb.Worksheets[Forex.JPY];
+            if (worksheetJpy == null)
+            {
+                MessageBox.Show($"Worksheet {Forex.GBP} missing");
+                return;
+            }
+
+        }
+
+        public static void Example(string fileWithPath)
         {
             //Open your template file.
             Workbook wb = new Workbook(fileWithPath);
