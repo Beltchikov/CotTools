@@ -42,11 +42,11 @@
                       Height="22"
                       SelectedIndex="0"
                       VerticalAlignment="Center">
-                <ComboBoxItem x:Name="itemNet" 
-                              Content="Net">
+                <ComboBoxItem x:Name="itemForexNet" 
+                              Content="FX Net">
                 </ComboBoxItem>
-                <ComboBoxItem x:Name="itemChangeNet" 
-                              Content="Change Net">
+                <ComboBoxItem x:Name="itemForexChangeNet" 
+                              Content="FX Change Net">
                 </ComboBoxItem>
             </ComboBox>
             <StackPanel Orientation="Horizontal"
@@ -69,7 +69,7 @@
                             <Style.Triggers>
                                 <DataTrigger 
                                 Binding="{Binding SelectedItem.Content, ElementName = cmbScenario}"
-                                Value="Net">
+                                Value="FX Net">
                                     <Setter Property="Visibility" Value="Hidden"/>
                                 </DataTrigger>
                             </Style.Triggers>
