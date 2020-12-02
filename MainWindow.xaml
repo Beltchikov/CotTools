@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CotTools"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="COT Tools" Height="450" Width="800" WindowStyle="SingleBorderWindow">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF2F5F6A" Offset="0.069"/>
+            <GradientStop Color="#FF8FB6BF" Offset="0.451"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"></ColumnDefinition>
@@ -13,20 +19,30 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Content="Drop COT Excel Files Here:"
-               Grid.Row="0"
+               Grid.Row="1"
                Grid.ColumnSpan="2"
                x:Name="lblFile"></Label>
         <StackPanel x:Name="panFile"
             AllowDrop="True" 
-                    Background="Beige" 
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Margin="5,5,5,5"
-                    Drop="panFile_Drop">
-
+                    Drop="panFile_Drop" Background="Gainsboro"/>
+        <StackPanel Orientation="Horizontal"
+                    Grid.Row="0">
+            <Label VerticalAlignment="Center">Column Index:</Label>
+            <TextBox Text="1" 
+                     VerticalAlignment="Center"
+                     TextAlignment="Center"
+                     Width="30"
+                     x:Name="txtColumnIndex"
+                     Background="Gainsboro">
+            </TextBox>
         </StackPanel>
+
     </Grid>
 </Window>
