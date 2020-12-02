@@ -41,7 +41,7 @@ namespace CotTools
             }
             if (WorksheetJpy == null)
             {
-                return $"Worksheet {Forex.GBP} missing";
+                return $"Worksheet {Forex.JPY} missing";
             }
 
             return string.Empty;
