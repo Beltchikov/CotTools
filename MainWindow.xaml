@@ -39,7 +39,7 @@
             <ComboBox x:Name="cmbScenario"
                       Width="150"
                       Margin="0,0,20,0"
-                      Height="20"
+                      Height="22"
                       SelectedIndex="0"
                       VerticalAlignment="Center">
                 <ComboBoxItem x:Name="itemNet" 
@@ -51,19 +51,8 @@
             </ComboBox>
             <StackPanel Orientation="Horizontal"
                         x:Name="panControlsNet">
-                <StackPanel.Style>
-                    <Style TargetType="StackPanel">
-                        <Style.Triggers>
-                            <DataTrigger 
-                                Binding="{Binding SelectedItem.Content, ElementName = cmbScenario}"
-                                Value="Change Net">
-                                <Setter Property="Visibility" Value="Hidden"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </StackPanel.Style>
                 <Label VerticalAlignment="Center">
-                    Column Index:</Label>
+                    Column 1 Index:</Label>
                 <TextBox Text="1" 
                      VerticalAlignment="Center"
                      TextAlignment="Center"
@@ -72,7 +61,33 @@
                      Background="Gainsboro"
                      Height="20">
                 </TextBox>
+                <StackPanel Orientation="Horizontal"
+                        x:Name="panControlsChangeNet"
+                            Margin="10,0,0,0">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Style.Triggers>
+                                <DataTrigger 
+                                Binding="{Binding SelectedItem.Content, ElementName = cmbScenario}"
+                                Value="Net">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <Label VerticalAlignment="Center">
+                        Column 2 Index:</Label>
+                    <TextBox Text="2" 
+                     VerticalAlignment="Center"
+                     TextAlignment="Center"
+                     Width="30"
+                     x:Name="txtColumnIndex1"
+                     Background="Gainsboro"
+                     Height="20">
+                    </TextBox>
+                </StackPanel>
             </StackPanel>
+
 
         </StackPanel>
 
