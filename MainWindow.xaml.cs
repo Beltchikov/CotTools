@@ -34,5 +34,6 @@ namespace CotTools
                 Excel.ProcessForex(files[0]);
             }
         }
+    
     }
 }

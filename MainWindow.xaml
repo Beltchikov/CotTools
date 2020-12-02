@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
@@ -33,15 +33,47 @@
                     Margin="5,5,5,5"
                     Drop="panFile_Drop" Background="Gainsboro"/>
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="0">
-            <Label VerticalAlignment="Center">Column Index:</Label>
-            <TextBox Text="1" 
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Margin="5,5,5,5">
+            <ComboBox x:Name="cmbScenario"
+                      Width="150"
+                      Margin="0,0,20,0"
+                      Height="20"
+                      SelectedIndex="0"
+                      VerticalAlignment="Center">
+                <ComboBoxItem x:Name="itemNet" 
+                              Content="Net">
+                </ComboBoxItem>
+                <ComboBoxItem x:Name="itemChangeNet" 
+                              Content="Change Net">
+                </ComboBoxItem>
+            </ComboBox>
+            <StackPanel Orientation="Horizontal"
+                        x:Name="panControlsNet">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger 
+                                Binding="{Binding SelectedItem.Content, ElementName = cmbScenario}"
+                                Value="Change Net">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <Label VerticalAlignment="Center">
+                    Column Index:</Label>
+                <TextBox Text="1" 
                      VerticalAlignment="Center"
                      TextAlignment="Center"
                      Width="30"
                      x:Name="txtColumnIndex"
-                     Background="Gainsboro">
-            </TextBox>
+                     Background="Gainsboro"
+                     Height="20">
+                </TextBox>
+            </StackPanel>
+
         </StackPanel>
 
     </Grid>
