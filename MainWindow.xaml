@@ -19,17 +19,24 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Content="Drop COT Excel Files Here:"
-               Grid.Row="1"
+               Grid.Row="2"
                Grid.ColumnSpan="2"
-               x:Name="lblFile"></Label>
+               x:Name="lblFile" ></Label>
+        <CheckBox x:Name="chkInvert" 
+                  Grid.Row="1"
+                  Margin="5,5,5,5" 
+                  IsChecked="True">
+            Invert Results (Dealer)
+        </CheckBox>
         <StackPanel x:Name="panFile"
             AllowDrop="True" 
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Margin="5,5,5,5"
                     Drop="panFile_Drop" Background="Gainsboro"/>
         <StackPanel Orientation="Horizontal"

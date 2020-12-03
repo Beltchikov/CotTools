@@ -32,8 +32,9 @@ namespace CotTools
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 lblFile.Content = files[0];
                 int columnIndex = Convert.ToInt32(txtColumnIndex.Text);
+                bool invertResults = chkInvert.IsChecked.HasValue ? chkInvert.IsChecked.Value : false;
 
-                Excel.ProcessForexNet(files[0], columnIndex);
+                Excel.ProcessForexNet(files[0], columnIndex, invertResults);
             }
         }
     

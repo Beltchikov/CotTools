@@ -8,7 +8,7 @@ namespace CotTools
 {
     public class Excel
     {
-        public static void ProcessForexNet(string fileWithPath, int columnIndex)
+        public static void ProcessForexNet(string fileWithPath, int columnIndex, bool invertResults)
         {
             ForexWorkbook forexWorkbook = new ForexWorkbook(fileWithPath);
             StringBuilder stringBuilder = new StringBuilder();
@@ -34,8 +34,9 @@ namespace CotTools
                 dictCurrencyValue[Forex.GBP] = forexWorkbook.WorksheetGbp.Cells[row, columnIndex].Value.ToNetValue();
                 dictCurrencyValue[Forex.JPY] = forexWorkbook.WorksheetJpy.Cells[row, columnIndex].Value.ToNetValue();
 
-                var max = GetCurrencyOfMaxValue(dictCurrencyValue);
-
+                var maxMin = invertResults
+                    ? GetCurrencyOfMaxMinValue(dictCurrencyValue, Int32.MaxValue, (a, b) => a < b)
+                    : GetCurrencyOfMaxMinValue(dictCurrencyValue, Int32.MinValue, (a, b) => a > b);
 
 
                 // TODO Best & worst. Inversion vor Dealer
@@ -44,19 +45,19 @@ namespace CotTools
 
         }
 
-        private static KeyValuePair<string, int> GetCurrencyOfMaxValue(Dictionary<string, int> dictCurrencyValue)
+        private static KeyValuePair<string, int> GetCurrencyOfMaxMinValue(Dictionary<string, int> dictCurrencyValue, int initValue, Func<int, int, bool> compareFunction)
         {
-           KeyValuePair<string, int> kvpMax = new KeyValuePair<string, int>(string.Empty, Int32.MinValue);
-       
+            KeyValuePair<string, int> kvpMaxMin = new KeyValuePair<string, int>(string.Empty, initValue);
+
             foreach (var key in dictCurrencyValue.Keys)
             {
-                if(dictCurrencyValue[key] > kvpMax.Value)
+                if (compareFunction(dictCurrencyValue[key], kvpMaxMin.Value))
                 {
-                    kvpMax = new KeyValuePair<string, int> (key, dictCurrencyValue[key]);
+                    kvpMaxMin = new KeyValuePair<string, int>(key, dictCurrencyValue[key]);
                 }
             }
 
-            return kvpMax;
+            return kvpMaxMin;
         }
 
         public static void Example(string fileWithPath)
