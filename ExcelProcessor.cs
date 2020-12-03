@@ -1,6 +1,7 @@
 ﻿using Aspose.Cells;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 
@@ -8,7 +9,7 @@ namespace CotTools
 {
     public class Excel
     {
-        public static void ProcessForexNet(string fileWithPath, int columnIndex, bool invertResults)
+        public static void ProcessForexNet(string fileWithPath, int dateColumnIndex, int columnIndex, bool invertResults)
         {
             ForexWorkbook forexWorkbook = new ForexWorkbook(fileWithPath);
             StringBuilder stringBuilder = new StringBuilder();
@@ -20,13 +21,13 @@ namespace CotTools
                 MessageBox.Show(message);
             }
 
-            //
+            // For each line in Excel
             Cells cellsEur = forexWorkbook.WorksheetEur.Cells;
             int rowCountEur = cellsEur.MaxDataRow;
             for (int row = 1; row <= rowCountEur; row++)
             {
+                // Data from different worksheets in dictionary
                 Dictionary<string, int> dictCurrencyValue = new Dictionary<string, int>();
-
                 dictCurrencyValue[Forex.EUR] = cellsEur[row, columnIndex].Value.ToNetValue();
                 dictCurrencyValue[Forex.AUD] = forexWorkbook.WorksheetAud.Cells[row, columnIndex].Value.ToNetValue();
                 dictCurrencyValue[Forex.CAD] = forexWorkbook.WorksheetCad.Cells[row, columnIndex].Value.ToNetValue();
@@ -34,10 +35,19 @@ namespace CotTools
                 dictCurrencyValue[Forex.GBP] = forexWorkbook.WorksheetGbp.Cells[row, columnIndex].Value.ToNetValue();
                 dictCurrencyValue[Forex.JPY] = forexWorkbook.WorksheetJpy.Cells[row, columnIndex].Value.ToNetValue();
 
+                // Currencies mit max/min values
                 var maxMin = invertResults
-                    ? GetCurrencyOfMaxMinValue(dictCurrencyValue, Int32.MaxValue, (a, b) => a < b)
-                    : GetCurrencyOfMaxMinValue(dictCurrencyValue, Int32.MinValue, (a, b) => a > b);
+                   ? GetCurrencyOfMaxMinValue(dictCurrencyValue, Int32.MaxValue, (a, b) => a < b)
+                   : GetCurrencyOfMaxMinValue(dictCurrencyValue, Int32.MinValue, (a, b) => a > b);
 
+                // Get date
+                DateTime date;
+                var dateTimeString = cellsEur[row, dateColumnIndex].Value.ToString();
+                if (!DateTime.TryParse(dateTimeString, new CultureInfo("DE-de"), DateTimeStyles.None, out date))
+                {
+                    MessageBox.Show($"DateTime can not be parsed from string {dateTimeString}");
+                    return;
+                }
 
                 // TODO Best & worst. Inversion vor Dealer
 

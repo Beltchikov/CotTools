@@ -56,8 +56,25 @@
                               Content="FX Change Net">
                 </ComboBoxItem>
             </ComboBox>
+
             <StackPanel Orientation="Horizontal"
-                        x:Name="panControlsNet">
+                        x:Name="panDateColumn"
+                            Margin="10,0,0,0">
+                <Label VerticalAlignment="Center">
+                    Date Column Index:</Label>
+                <TextBox Text="0" 
+                     VerticalAlignment="Center"
+                     TextAlignment="Center"
+                     Width="30"
+                     x:Name="txtDateColumnIndex"
+                     Background="Gainsboro"
+                     Height="20">
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        x:Name="panControlsNet"
+                        Margin="10,0,0,0">
                 <Label VerticalAlignment="Center">
                     Column 1 Index:</Label>
                 <TextBox Text="3" 
