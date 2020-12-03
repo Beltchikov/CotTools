@@ -37,22 +37,40 @@ namespace CotTools
 
                 // Currencies mit max/min values
                 var maxMin = invertResults
-                   ? GetCurrencyOfMaxMinValue(dictCurrencyValue, Int32.MaxValue, (a, b) => a < b)
-                   : GetCurrencyOfMaxMinValue(dictCurrencyValue, Int32.MinValue, (a, b) => a > b);
+                   ? GetCurrencyOfMaxMinValue(dictCurrencyValue, int.MaxValue, (a, b) => a < b)
+                   : GetCurrencyOfMaxMinValue(dictCurrencyValue, int.MinValue, (a, b) => a > b);
 
                 // Get date
-                DateTime date;
-                var dateTimeString = cellsEur[row, dateColumnIndex].Value.ToString();
-                if (!DateTime.TryParse(dateTimeString, new CultureInfo("DE-de"), DateTimeStyles.None, out date))
+                DateTime date = GetDate(cellsEur[row, dateColumnIndex]);
+                if (date == DateTime.MinValue)
                 {
-                    MessageBox.Show($"DateTime can not be parsed from string {dateTimeString}");
+                    MessageBox.Show($"DateTime can not be parsed from string {cellsEur[row, dateColumnIndex].Value.ToString()}");
                     return;
                 }
 
-                // TODO Best & worst. Inversion vor Dealer
+
+
 
             }
 
+        }
+
+        /// <summary>
+        /// GetDate - returns date of next friday.
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <returns>Return DateTime.MinValue in case of conversion error.</returns>
+        private static DateTime GetDate(Cell cell)
+        {
+            DateTime date;
+            var dateTimeString = cell.Value.ToString();
+            if (!DateTime.TryParse(dateTimeString, new CultureInfo("DE-de"), DateTimeStyles.None, out date))
+            {
+                return DateTime.MinValue;
+            }
+
+            date = date.AddDays(DayOfWeek.Friday - date.DayOfWeek);
+            return date;
         }
 
         private static KeyValuePair<string, int> GetCurrencyOfMaxMinValue(Dictionary<string, int> dictCurrencyValue, int initValue, Func<int, int, bool> compareFunction)
