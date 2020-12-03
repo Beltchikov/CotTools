@@ -13,6 +13,7 @@ namespace CotTools
         {
             ForexWorkbook forexWorkbook = new ForexWorkbook(fileWithPath);
             StringBuilder stringBuilder = new StringBuilder();
+            const string SEPARATOR = ";";
 
             // Validate
             string message;
@@ -34,11 +35,19 @@ namespace CotTools
                 dictCurrencyValue[Forex.CHF] = forexWorkbook.WorksheetChf.Cells[row, columnIndex].Value.ToNetValue();
                 dictCurrencyValue[Forex.GBP] = forexWorkbook.WorksheetGbp.Cells[row, columnIndex].Value.ToNetValue();
                 dictCurrencyValue[Forex.JPY] = forexWorkbook.WorksheetJpy.Cells[row, columnIndex].Value.ToNetValue();
+                dictCurrencyValue[Forex.USD] = (int)Math.Round((double)(dictCurrencyValue[Forex.EUR] + dictCurrencyValue[Forex.AUD] + dictCurrencyValue[Forex.CAD] + dictCurrencyValue[Forex.CHF]
+                    + dictCurrencyValue[Forex.GBP] + dictCurrencyValue[Forex.JPY]) / -6);
+
 
                 // Currencies mit max/min values
-                var maxMin = invertResults
+                var max = invertResults
                    ? GetCurrencyOfMaxMinValue(dictCurrencyValue, int.MaxValue, (a, b) => a < b)
                    : GetCurrencyOfMaxMinValue(dictCurrencyValue, int.MinValue, (a, b) => a > b);
+                var min = invertResults
+                   ? GetCurrencyOfMaxMinValue(dictCurrencyValue, int.MinValue, (a, b) => a > b)
+                   : GetCurrencyOfMaxMinValue(dictCurrencyValue, int.MaxValue, (a, b) => a < b);
+                var bestPairUnnormilized = max.Key + min.Key;
+                KeyValuePair<string, int> bestPairWithDirection = NormalizeCurrencyPair(bestPairUnnormilized);
 
                 // Get date
                 DateTime date = GetDate(cellsEur[row, dateColumnIndex]);
@@ -48,9 +57,26 @@ namespace CotTools
                     return;
                 }
 
+                // Fill string builder
+                //stringBuilder.Append($"{date}SEPARATOR{}");
 
 
+            }
 
+        }
+
+        private static KeyValuePair<string, int> NormalizeCurrencyPair(string pair)
+        {
+            if(Forex.Pairs.Contains(pair.ToUpper()))
+            {
+                return new KeyValuePair<string, int>(pair.ToUpper(), 1);
+            }
+            else
+            {
+                string first3 = pair[0..3];
+                string last3 = pair[3..^0];
+                var pairReversed = last3 + first3;
+                return new KeyValuePair<string, int>(pairReversed.ToUpper(), 1);
             }
 
         }
