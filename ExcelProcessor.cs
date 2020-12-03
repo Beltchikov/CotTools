@@ -11,6 +11,7 @@ namespace CotTools
         public static void ProcessForexNet(string fileWithPath, int columnIndex)
         {
             ForexWorkbook forexWorkbook = new ForexWorkbook(fileWithPath);
+            StringBuilder stringBuilder = new StringBuilder();
 
             // Validate
             string message;
@@ -22,18 +23,40 @@ namespace CotTools
             //
             Cells cellsEur = forexWorkbook.WorksheetEur.Cells;
             int rowCountEur = cellsEur.MaxDataRow;
-            for (int row = 1; row <= rowCountEur; row++) 
+            for (int row = 1; row <= rowCountEur; row++)
             {
-                int valueEur = cellsEur[row, columnIndex].Value.ToNetValue();
-                int valueAud = forexWorkbook.WorksheetAud.Cells[row, columnIndex].Value.ToNetValue();
-                int valueCad = forexWorkbook.WorksheetCad.Cells[row, columnIndex].Value.ToNetValue();
-                int valueChf = forexWorkbook.WorksheetChf.Cells[row, columnIndex].Value.ToNetValue();
-                int valueGbp = forexWorkbook.WorksheetGbp.Cells[row, columnIndex].Value.ToNetValue();
-                int valueJpy = forexWorkbook.WorksheetJpy.Cells[row, columnIndex].Value.ToNetValue();
+                Dictionary<string, int> dictCurrencyValue = new Dictionary<string, int>();
+
+                dictCurrencyValue[Forex.EUR] = cellsEur[row, columnIndex].Value.ToNetValue();
+                dictCurrencyValue[Forex.AUD] = forexWorkbook.WorksheetAud.Cells[row, columnIndex].Value.ToNetValue();
+                dictCurrencyValue[Forex.CAD] = forexWorkbook.WorksheetCad.Cells[row, columnIndex].Value.ToNetValue();
+                dictCurrencyValue[Forex.CHF] = forexWorkbook.WorksheetChf.Cells[row, columnIndex].Value.ToNetValue();
+                dictCurrencyValue[Forex.GBP] = forexWorkbook.WorksheetGbp.Cells[row, columnIndex].Value.ToNetValue();
+                dictCurrencyValue[Forex.JPY] = forexWorkbook.WorksheetJpy.Cells[row, columnIndex].Value.ToNetValue();
+
+                var max = GetCurrencyOfMaxValue(dictCurrencyValue);
+
+
 
                 // TODO Best & worst. Inversion vor Dealer
+
             }
 
+        }
+
+        private static KeyValuePair<string, int> GetCurrencyOfMaxValue(Dictionary<string, int> dictCurrencyValue)
+        {
+           KeyValuePair<string, int> kvpMax = new KeyValuePair<string, int>(string.Empty, Int32.MinValue);
+       
+            foreach (var key in dictCurrencyValue.Keys)
+            {
+                if(dictCurrencyValue[key] > kvpMax.Value)
+                {
+                    kvpMax = new KeyValuePair<string, int> (key, dictCurrencyValue[key]);
+                }
+            }
+
+            return kvpMax;
         }
 
         public static void Example(string fileWithPath)
