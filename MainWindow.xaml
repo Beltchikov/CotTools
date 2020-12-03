@@ -117,7 +117,9 @@
         <TextBox x:Name="txtResult"
                  Grid.Row="3"
                  Grid.Column="1"
-                 Margin="5,5,5,5"></TextBox>
-
+                 Margin="5,5,5,5"
+                 VerticalScrollBarVisibility="Auto"
+                 Background="Gainsboro">
+        </TextBox>
     </Grid>
 </Window>

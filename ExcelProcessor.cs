@@ -60,7 +60,7 @@ namespace CotTools
                 }
 
                 // Fill string builder
-                stringBuilder.Append($"{date}{SEPARATOR}{bestPairWithDirection.Key}{SEPARATOR}{bestPairWithDirection.Value}{Environment.NewLine}");
+                stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{bestPairWithDirection.Key}{SEPARATOR}{bestPairWithDirection.Value}{Environment.NewLine}");
             }
 
             return stringBuilder.ToString();
