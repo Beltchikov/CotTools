@@ -36,7 +36,8 @@ namespace CotTools
                 int columnIndex = Convert.ToInt32(txtColumnIndex.Text);
                 bool invertResults = chkInvert.IsChecked.HasValue ? chkInvert.IsChecked.Value : false;
 
-                Excel.ProcessForexNet(files[0], dateColumnIndex, columnIndex, invertResults);
+
+                txtResult.Text = Excel.ProcessForexNet(files[0], dateColumnIndex, columnIndex, invertResults);
             }
         }
     

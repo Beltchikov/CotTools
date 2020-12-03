@@ -9,7 +9,7 @@ namespace CotTools
 {
     public class Excel
     {
-        public static void ProcessForexNet(string fileWithPath, int dateColumnIndex, int columnIndex, bool invertResults)
+        public static string ProcessForexNet(string fileWithPath, int dateColumnIndex, int columnIndex, bool invertResults)
         {
             ForexWorkbook forexWorkbook = new ForexWorkbook(fileWithPath);
             StringBuilder stringBuilder = new StringBuilder();
@@ -19,7 +19,8 @@ namespace CotTools
             string message;
             if ((message = forexWorkbook.Validate()) != string.Empty)
             {
-                MessageBox.Show(message);
+                return message;
+                //MessageBox.Show(message);
             }
 
             // For each line in Excel
@@ -53,21 +54,21 @@ namespace CotTools
                 DateTime date = GetDate(cellsEur[row, dateColumnIndex]);
                 if (date == DateTime.MinValue)
                 {
-                    MessageBox.Show($"DateTime can not be parsed from string {cellsEur[row, dateColumnIndex].Value.ToString()}");
-                    return;
+                    message = $"DateTime can not be parsed from string {cellsEur[row, dateColumnIndex].Value.ToString()}";
+                    //MessageBox.Show();
+                    return message;
                 }
 
                 // Fill string builder
-                //stringBuilder.Append($"{date}SEPARATOR{}");
-
-
+                stringBuilder.Append($"{date}{SEPARATOR}{bestPairWithDirection.Key}{SEPARATOR}{bestPairWithDirection.Value}{Environment.NewLine}");
             }
 
+            return stringBuilder.ToString();
         }
 
         private static KeyValuePair<string, int> NormalizeCurrencyPair(string pair)
         {
-            if(Forex.Pairs.Contains(pair.ToUpper()))
+            if (Forex.Pairs.Contains(pair.ToUpper()))
             {
                 return new KeyValuePair<string, int>(pair.ToUpper(), 1);
             }
@@ -76,7 +77,7 @@ namespace CotTools
                 string first3 = pair[0..3];
                 string last3 = pair[3..^0];
                 var pairReversed = last3 + first3;
-                return new KeyValuePair<string, int>(pairReversed.ToUpper(), 1);
+                return new KeyValuePair<string, int>(pairReversed.ToUpper(), -1);
             }
 
         }
