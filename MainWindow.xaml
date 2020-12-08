@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CotTools"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
         Title="COT Tools" Height="450" Width="800" WindowStyle="SingleBorderWindow">
     <Window.Background>
@@ -66,9 +67,10 @@
                       SelectedIndex="0"
                       VerticalAlignment="Center"
                       ItemsSource="{Binding Scenarios}"
-                      SelectedItem="{Binding SelectedScenario}"
-                      >
-              
+                      SelectedItem="{Binding SelectedScenario}">
+                <!--SelectedItem="{Binding SelectedScenario, 
+                diag:PresentationTraceSources.TraceLevel=High}"-->
+
             </ComboBox>
 
 
