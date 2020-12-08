@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace CotTools
 {
-    public class Excel
+    public class ExcelProcessor
     {
         public static string ProcessForexNet(string fileWithPath, int dateColumnIndex, int columnIndex, bool invertResults)
         {

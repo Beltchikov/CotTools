@@ -1,12 +1,9 @@
 ﻿using CotTools.Commands;
 using CotTools.Model;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CotTools.ViewModels
@@ -35,8 +32,14 @@ namespace CotTools.ViewModels
             CommandRequestNavigate = new CommandRequestNavigate();
         }
 
+        /// <summary>
+        /// AssetGroups
+        /// </summary>
         public ObservableCollection<string> AssetGroups { get; set; }
 
+        /// <summary>
+        /// SelectedAssetGroup
+        /// </summary>
         public string SelectedAssetGroup
         {
             get
@@ -54,8 +57,14 @@ namespace CotTools.ViewModels
             }
         }
 
+        /// <summary>
+        /// ObservableCollection
+        /// </summary>
         public ObservableCollection<string> Scenarios { get; set; }
 
+        /// <summary>
+        /// SelectedScenario
+        /// </summary>
         public string SelectedScenario
         {
             get
@@ -69,17 +78,23 @@ namespace CotTools.ViewModels
             }
         }
 
+        /// <summary>
+        /// PropertyChangedEventHandler
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// NotifyPropertyChanged
+        /// </summary>
+        /// <param name="propertyName"></param>
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
+        /// <summary>
+        /// CommandRequestNavigate
+        /// </summary>
         public ICommand CommandRequestNavigate { get; set; }
 
     }

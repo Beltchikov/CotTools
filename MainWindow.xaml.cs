@@ -1,19 +1,7 @@
 ﻿using CotTools.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace CotTools
 {
@@ -22,12 +10,20 @@ namespace CotTools
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// MainWindow
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
         }
 
+        /// <summary>
+        /// panFile_Drop
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void panFile_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -40,7 +36,7 @@ namespace CotTools
                 bool invertResults = false; // TODO
 
                 // TODO
-                txtResult.Text = Excel.ProcessForexNet(files[0], 0, 0, invertResults);
+                txtResult.Text = ExcelProcessor.ProcessForexNet(files[0], 0, 0, invertResults);
             }
         }
 
