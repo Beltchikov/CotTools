@@ -28,15 +28,13 @@ namespace CotTools
             public static string ProcessForexNet(string fileWithPath, int dateColumnIndex, int columnIndex, bool invertResults)
             {
                 ForexWorkbook forexWorkbook = new ForexWorkbook(fileWithPath);
-                StringBuilder stringBuilder = new StringBuilder();
-                const string SEPARATOR = ";";
+
 
                 // Validate
                 string message;
                 if ((message = forexWorkbook.Validate()) != string.Empty)
                 {
                     return message;
-                    //MessageBox.Show(message);
                 }
 
                 // For each line in Excel
@@ -84,7 +82,16 @@ namespace CotTools
 
             internal static void ProcessDealerInverted(string fileName)
             {
-                throw new NotImplementedException();
+                CftcFinancialsWorkbook forexWorkbook = new CftcFinancialsWorkbook(fileName);
+
+                // For each line in Excel
+                Cells cells = forexWorkbook.FirstWorksheet.Cells;
+                int rowCount = cells.MaxDataRow;
+                for (int row = 1; row <= rowCount; row++)
+                {
+                    //var row = forexWorkbook.FirstWorksheet.Cells.Columns.FindIndex(c =>c.N)
+                }
+
             }
 
             public static void Example(string fileWithPath)

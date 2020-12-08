@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CotTools
 {
-    public class ForexWorkbook : Workbook
+    public class ForexWorkbook 
     {
         Workbook _workbook;
         public ForexWorkbook(string fileWithPath)

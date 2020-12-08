@@ -11,6 +11,9 @@ namespace CotTools
     /// </summary>
     public class ConverterBase
     {
+        protected static StringBuilder stringBuilder = new StringBuilder();
+        protected const string SEPARATOR = ";";
+
         /// <summary>
         /// NormalizeCurrencyPair
         /// </summary>
