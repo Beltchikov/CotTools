@@ -1,4 +1,5 @@
-﻿using CotTools.Model;
+﻿using CotTools.Commands;
+using CotTools.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,6 +7,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 
 namespace CotTools.ViewModels
 {
@@ -29,6 +31,8 @@ namespace CotTools.ViewModels
             SelectedAssetGroup = assetGroups.Group("Financials").Name;
             Scenarios = new ObservableCollection<string>(assetGroups.Group("Financials").Scenarios);
             SelectedScenario = Scenarios[0];
+
+            CommandRequestNavigate = new CommandRequestNavigate();
         }
 
         public ObservableCollection<string> AssetGroups { get; set; }
@@ -76,14 +80,7 @@ namespace CotTools.ViewModels
         }
 
 
-        //public string SelectedScenario
-        //{
-        //    get { return (string)GetValue(SelectedScenarioProperty); }
-        //    set { SetValue(SelectedScenarioProperty, value); }
-        //}
-
-        //public static readonly DependencyProperty SelectedScenarioProperty =
-        //    DependencyProperty.Register("SelectedScenario", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(0));
+        public ICommand CommandRequestNavigate { get; set; }
 
     }
 }
