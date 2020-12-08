@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,12 +35,16 @@ namespace CotTools
 
                 int dateColumnIndex = Convert.ToInt32(txtDateColumnIndex.Text);
                 int columnIndex = Convert.ToInt32(txtColumnIndex.Text);
-                bool invertResults = chkInvert.IsChecked.HasValue ? chkInvert.IsChecked.Value : false;
+                bool invertResults = false; // TODO
 
 
                 txtResult.Text = Excel.ProcessForexNet(files[0], dateColumnIndex, columnIndex, invertResults);
             }
         }
-    
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+           Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+        }
     }
 }

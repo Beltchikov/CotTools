@@ -24,23 +24,28 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Grid.ColumnSpan="2"
+                   Margin="5,5,5,5">           
+        <Hyperlink NavigateUri="https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalCompressed/index.htm" 
+                   RequestNavigate="Hyperlink_RequestNavigate" Foreground="Black"
+                   >
+            https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalCompressed/index.htm
+        </Hyperlink>    
+        </TextBlock>
         <Label Content="Drop COT Excel Files Here:"
                Grid.Row="2"
                Grid.ColumnSpan="2"
                x:Name="lblFile" ></Label>
-        <CheckBox x:Name="chkInvert" 
-                  Grid.Row="1"
-                  Margin="5,5,5,5" 
-                  IsChecked="True">
-            Invert Results (Dealer)
-        </CheckBox>
+
         <StackPanel x:Name="panFile"
             AllowDrop="True" 
                     Grid.Row="3"
                     Margin="5,5,5,5"
                     Drop="panFile_Drop" Background="Gainsboro"/>
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="0"
+                    Grid.Row="1"
                     Grid.ColumnSpan="2"
                     Margin="5,5,5,5">
             <ComboBox x:Name="cmbScenario"
