@@ -5,27 +5,33 @@ using System.Text;
 
 namespace CotTools.Model
 {
+    /// <summary>
+    /// AssetGroups
+    /// </summary>
     public class AssetGroups
     {
         private static List<AssetGroup> assetGroups;
 
+        /// <summary>
+        /// AssetGroups
+        /// </summary>
         public AssetGroups()
         {
             assetGroups = new List<AssetGroup>
             {
                 new AssetGroup{
-                    Name = "Financials",
+                    Name = AssetGroup.FINANCIALS,
                     Scenarios = new List<string>
                     {
-                        "DealerInverted",
-                        "DealerChangeInverted",
-                        "AssetManager",
-                        "AssetManagerChange",
-                        "Leveraged",
-                        "LeveragedChanged"
+                        Scenario.DEALERINVERTED,
+                        Scenario.DEALERCHANGEINVERTED,
+                        Scenario.ASSETMANAGER,
+                        Scenario.ASSETMANAGERCHANGE,
+                        Scenario.LEVERAGED,
+                        Scenario.LEVERAGEDCHANGED,
                     }
                 }, new AssetGroup{
-                    Name = "Disaggregated",
+                    Name = AssetGroup.DISAGGREGATED,
                     Scenarios = new List<string>
                     {
                         "TODO"
@@ -35,6 +41,9 @@ namespace CotTools.Model
 
         }
 
+        /// <summary>
+        /// Names
+        /// </summary>
         public List<string> Names
         {
             get
@@ -43,6 +52,11 @@ namespace CotTools.Model
             }
         }
 
+        /// <summary>
+        /// Group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public AssetGroup Group(string name)
         {
             return assetGroups.FirstOrDefault(g => g.Name == name);

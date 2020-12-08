@@ -1,7 +1,7 @@
-﻿using CotTools.ViewModels;
-
+﻿using CotTools.Model;
+using CotTools.ViewModels;
+using System;
 using System.Windows;
-
 
 namespace CotTools
 {
@@ -31,13 +31,40 @@ namespace CotTools
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 lblFile.Content = files[0];
 
-                int dateColumnIndex = 0;
-                int columnIndex = 0;
-                bool invertResults = false; // TODO
+                string assetGroup = cmbAssetGroups.Text;
+                string scenario = cmbScenario.Text;
 
-                // TODO
-                txtResult.Text = ExcelProcessor.ProcessForexNet(files[0], 0, 0, invertResults);
+                switch (assetGroup)
+                {
+                    case AssetGroup.FINANCIALS:
+                        ProcessFinancials(files[0], scenario);
+                        break;
+                    case AssetGroup.DISAGGREGATED:
+                        throw new NotImplementedException();
+                    default:
+                        throw new NotImplementedException();
+                }
+
+
             }
+        }
+
+        private void ProcessFinancials(string fileName, string scenario)
+        {
+            // TODO
+            //bool invertResults = false; 
+            //txtResult.Text = ExcelProcessor.Financials.ProcessForexNet(files[0], 0, 0, invertResults);
+
+            switch (scenario)
+            {
+                case Scenario.DEALERINVERTED:
+                    ExcelProcessor.Financials.ProcessDealerInverted(fileName);
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+
         }
 
     }

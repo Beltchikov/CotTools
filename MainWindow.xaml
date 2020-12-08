@@ -54,7 +54,7 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     Margin="5,5,5,5">
-            <ComboBox x:Name="cmbFinancials"
+            <ComboBox x:Name="cmbAssetGroups"
                       Width="150"
                       Margin="0,0,20,0"
                       Height="22"
