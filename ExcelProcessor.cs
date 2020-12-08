@@ -89,7 +89,12 @@ namespace CotTools
                 int rowCount = cells.MaxDataRow;
                 for (int row = 1; row <= rowCount; row++)
                 {
-                    //var row = forexWorkbook.FirstWorksheet.Cells.Columns.FindIndex(c =>c.N)
+                    //var dateString
+                    //                   = forexWorkbook.FirstWorksheet.Cells[row, CellsHelper.ColumnNameToIndex(CftcFinancialsWorkbook.COLUMN_DATE)].Value.ToString();
+                    //var longString
+                    //    = forexWorkbook.FirstWorksheet.Cells[row, CellsHelper.ColumnNameToIndex(CftcFinancialsWorkbook.COLUMN_DEALER_LONG)].Value.ToString();
+                    //var shortString
+                    //    = forexWorkbook.FirstWorksheet.Cells[row, CellsHelper.ColumnNameToIndex(CftcFinancialsWorkbook.COLUMN_DEALER_SHORT)].Value.ToString();
                 }
 
             }
