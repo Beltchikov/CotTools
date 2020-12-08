@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CotTools.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace CotTools
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowViewModel();
         }
 
         private void panFile_Drop(object sender, DragEventArgs e)
@@ -33,12 +35,12 @@ namespace CotTools
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 lblFile.Content = files[0];
 
-                int dateColumnIndex = Convert.ToInt32(txtDateColumnIndex.Text);
-                int columnIndex = Convert.ToInt32(txtColumnIndex.Text);
+                int dateColumnIndex = 0;
+                int columnIndex = 0;
                 bool invertResults = false; // TODO
 
-
-                txtResult.Text = Excel.ProcessForexNet(files[0], dateColumnIndex, columnIndex, invertResults);
+                // TODO
+                txtResult.Text = Excel.ProcessForexNet(files[0], 0, 0, invertResults);
             }
         }
 

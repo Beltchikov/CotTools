@@ -48,74 +48,29 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="2"
                     Margin="5,5,5,5">
+            <ComboBox x:Name="cmbFinancials"
+                      Width="150"
+                      Margin="0,0,20,0"
+                      Height="22"
+                      SelectedIndex="0"
+                      VerticalAlignment="Center"
+                      ItemsSource="{Binding AssetGroups}" 
+                      SelectedItem="{Binding SelectedAssetGroup}">
+            </ComboBox>
+
+
             <ComboBox x:Name="cmbScenario"
                       Width="150"
                       Margin="0,0,20,0"
                       Height="22"
                       SelectedIndex="0"
-                      VerticalAlignment="Center">
-                <ComboBoxItem x:Name="itemForexNet" 
-                              Content="FX Net">
-                </ComboBoxItem>
-                <ComboBoxItem x:Name="itemForexChangeNet" 
-                              Content="FX Change Net">
-                </ComboBoxItem>
+                      VerticalAlignment="Center"
+                      ItemsSource="{Binding Scenarios}"
+                      SelectedItem="{Binding SelectedScenario}"
+                      >
+              
             </ComboBox>
 
-            <StackPanel Orientation="Horizontal"
-                        x:Name="panDateColumn"
-                            Margin="10,0,0,0">
-                <Label VerticalAlignment="Center">
-                    Date Column Index:</Label>
-                <TextBox Text="0" 
-                     VerticalAlignment="Center"
-                     TextAlignment="Center"
-                     Width="30"
-                     x:Name="txtDateColumnIndex"
-                     Background="Gainsboro"
-                     Height="20">
-                </TextBox>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal"
-                        x:Name="panControlsNet"
-                        Margin="10,0,0,0">
-                <Label VerticalAlignment="Center">
-                    Column 1 Index:</Label>
-                <TextBox Text="3" 
-                     VerticalAlignment="Center"
-                     TextAlignment="Center"
-                     Width="30"
-                     x:Name="txtColumnIndex"
-                     Background="Gainsboro"
-                     Height="20">
-                </TextBox>
-                <StackPanel Orientation="Horizontal"
-                        x:Name="panControlsChangeNet"
-                            Margin="10,0,0,0">
-                    <StackPanel.Style>
-                        <Style TargetType="StackPanel">
-                            <Style.Triggers>
-                                <DataTrigger 
-                                Binding="{Binding SelectedItem.Content, ElementName = cmbScenario}"
-                                Value="FX Net">
-                                    <Setter Property="Visibility" Value="Hidden"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </StackPanel.Style>
-                    <Label VerticalAlignment="Center">
-                        Column 2 Index:</Label>
-                    <TextBox Text="2" 
-                     VerticalAlignment="Center"
-                     TextAlignment="Center"
-                     Width="30"
-                     x:Name="txtColumnIndex1"
-                     Background="Gainsboro"
-                     Height="20">
-                    </TextBox>
-                </StackPanel>
-            </StackPanel>
 
 
         </StackPanel>
