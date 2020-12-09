@@ -34,10 +34,11 @@ namespace CotTools
                 string assetGroup = cmbAssetGroups.Text;
                 string scenario = cmbScenario.Text;
 
+                string processResult;
                 switch (assetGroup)
                 {
                     case AssetGroup.FINANCIALS:
-                        ProcessFinancials(files[0], scenario);
+                        processResult = ProcessFinancials(files[0], scenario);
                         break;
                     case AssetGroup.DISAGGREGATED:
                         throw new NotImplementedException();
@@ -46,25 +47,25 @@ namespace CotTools
                 }
 
 
+                // TODO
+                //bool invertResults = false; 
+                //txtResult.Text = ExcelProcessor.Financials.ProcessForexNet(files[0], 0, 0, invertResults);
+
+                txtResult.Text = processResult;
             }
         }
 
-        private void ProcessFinancials(string fileName, string scenario)
+        private string ProcessFinancials(string fileName, string scenario)
         {
-            // TODO
-            //bool invertResults = false; 
-            //txtResult.Text = ExcelProcessor.Financials.ProcessForexNet(files[0], 0, 0, invertResults);
+            
 
-            switch (scenario)
+             switch (scenario)
             {
                 case Scenario.DEALERINVERTED:
-                    ExcelProcessor.Financials.ProcessDealerInverted(fileName);
-                    break;
+                    return ExcelProcessor.Financials.ProcessDealerInverted(fileName);
                 default:
                     throw new NotImplementedException();
             }
-
-
         }
 
     }

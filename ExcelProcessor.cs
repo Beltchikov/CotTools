@@ -80,7 +80,11 @@ namespace CotTools
                 return stringBuilder.ToString();
             }
 
-            internal static void ProcessDealerInverted(string fileName)
+            /// <summary>
+            /// ProcessDealerInverted
+            /// </summary>
+            /// <param name="fileName"></param>
+            internal static string ProcessDealerInverted(string fileName)
             {
                 CftcFinancialsWorkbook forexWorkbook = new CftcFinancialsWorkbook(fileName);
 
@@ -93,14 +97,17 @@ namespace CotTools
                 int rowCount = cells.MaxDataRow;
                 for (int row = 1; row <= rowCount; row++)
                 {
-                    //var dateString
-                    //                   = forexWorkbook.FirstWorksheet.Cells[row, CellsHelper.ColumnNameToIndex(CftcFinancialsWorkbook.COLUMN_DATE)].Value.ToString();
-                    //var longString
-                    //    = forexWorkbook.FirstWorksheet.Cells[row, CellsHelper.ColumnNameToIndex(CftcFinancialsWorkbook.COLUMN_DEALER_LONG)].Value.ToString();
-                    //var shortString
-                    //    = forexWorkbook.FirstWorksheet.Cells[row, CellsHelper.ColumnNameToIndex(CftcFinancialsWorkbook.COLUMN_DEALER_SHORT)].Value.ToString();
+                    var dateString = forexWorkbook.FirstWorksheet.Cells[row, colDate].Value.ToString();
+                    var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
+                    var longValue = Convert.ToInt32(forexWorkbook.FirstWorksheet.Cells[row, colDealerLong].Value);
+                    var shortValue = Convert.ToInt32(forexWorkbook.FirstWorksheet.Cells[row, colDealerShort].Value);
+                    var netValue = longValue - shortValue;
+
+                    // Fill string builder
+                    stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{netValue}{Environment.NewLine}");
                 }
 
+                return stringBuilder.ToString();
             }
 
             public static void Example(string fileWithPath)
