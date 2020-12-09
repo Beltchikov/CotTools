@@ -84,6 +84,10 @@ namespace CotTools
             {
                 CftcFinancialsWorkbook forexWorkbook = new CftcFinancialsWorkbook(fileName);
 
+                var colDate = forexWorkbook.IndexOfDate;
+                var colDealerLong = forexWorkbook.IndexOfDealerLong;
+                var colDealerShort = forexWorkbook.IndexOfDealerShort;
+
                 // For each line in Excel
                 Cells cells = forexWorkbook.FirstWorksheet.Cells;
                 int rowCount = cells.MaxDataRow;

@@ -18,6 +18,26 @@ namespace CotTools
         public const string COLUMN_DATE = "Report_Date_as_MM_DD_YYYY";
         public const string COLUMN_DEALER_LONG = "Dealer_Positions_Long_All";
         public const string COLUMN_DEALER_SHORT = "Dealer_Positions_Short_All";
+        public int IndexOfDate => IndexOfColumn(COLUMN_DATE);
+        public int IndexOfDealerLong=> IndexOfColumn(COLUMN_DEALER_LONG);
+        public int IndexOfDealerShort=> IndexOfColumn(COLUMN_DEALER_SHORT);
+     
+
+        /// <summary>
+        /// IndexOfColumn
+        /// </summary>
+        /// <param name="columnString"></param>
+        /// <returns>Returns -1 if column header not found.</returns>
+        private int IndexOfColumn(string columnString)
+        {
+            Cell cell = FirstWorksheet.Cells.Find(columnString, null);
+            if (cell == null)
+            {
+                return -1;
+            }
+
+            return cell.Column;
+        }
 
 
     }
