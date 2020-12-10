@@ -87,22 +87,17 @@
                     Background="Aquamarine"
                     LastChildFill="True"
                     Margin="5,5,5,5">
-            <Menu x:Name="mnuScenarios"
-                  Width=" auto"
-                  MinWidth="100" 
-                  Background="#FF2789DE"
-                  ItemsSource="{Binding Assets , Mode=OneWay,
-                diag:PresentationTraceSources.TraceLevel=High}">
-                <Menu.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </Menu.ItemsPanel>
-            </Menu>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ListBox x:Name="listAssets"
+                         ItemsSource="{Binding Assets , Mode=OneWay}"
+                         Background="#FF2789DE"
+                         MinWidth="400" >
+                    
+                </ListBox>
+               </ScrollViewer>
             <TextBox x:Name="txtResult"
                  VerticalScrollBarVisibility="Auto"
-                 Background="Gainsboro"
-                     >
+                 Background="Gainsboro">
             </TextBox>
         </DockPanel>
 
