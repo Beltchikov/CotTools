@@ -37,7 +37,7 @@
                    CommandTarget="{Binding ElementName=lnkCftc}"
                    >
             https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalCompressed/index.htm
-        </Hyperlink>    
+        </Hyperlink>
         </TextBlock>
         <Label Content="Drop COT Excel Files Here:"
                Grid.Row="2"
@@ -81,12 +81,29 @@
 
 
         </StackPanel>
-        <TextBox x:Name="txtResult"
-                 Grid.Row="3"
-                 Grid.Column="1"
-                 Margin="5,5,5,5"
+        <DockPanel x:Name="panResults" 
+                    Grid.Row="3" 
+                    Grid.Column="1"
+                    Background="Aquamarine"
+                    LastChildFill="True"
+                    Margin="5,5,5,5">
+            <Menu x:Name="mnuScenarios"
+                  Width=" auto"
+                  MinWidth="100" Background="#FF2789DE">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem Header="sss"></MenuItem>
+                <MenuItem Header="ddd"></MenuItem>
+            </Menu>
+            <TextBox x:Name="txtResult"
                  VerticalScrollBarVisibility="Auto"
-                 Background="Gainsboro">
-        </TextBox>
+                 Background="Gainsboro"
+                     >
+            </TextBox>
+        </DockPanel>
+
     </Grid>
 </Window>

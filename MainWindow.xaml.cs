@@ -34,6 +34,9 @@ namespace CotTools
                 string assetGroup = cmbAssetGroups.Text;
                 string scenario = cmbScenario.Text;
 
+                var assets = ExcelProcessor.GetAssets(files[0]);
+
+
                 string processResult;
                 switch (assetGroup)
                 {
@@ -51,6 +54,7 @@ namespace CotTools
                 //bool invertResults = false; 
                 //txtResult.Text = ExcelProcessor.Financials.ProcessForexNet(files[0], 0, 0, invertResults);
 
+                txtResult.Text = string.Empty;
                 txtResult.Text = processResult;
             }
         }
@@ -63,6 +67,8 @@ namespace CotTools
             {
                 case Scenario.DEALERINVERTED:
                     return ExcelProcessor.Financials.ProcessDealerInverted(fileName);
+                case Scenario.DEALERCHANGEINVERTED:
+                    return ExcelProcessor.Financials.ProcessDealerChangeInverted(fileName);
                 default:
                     throw new NotImplementedException();
             }

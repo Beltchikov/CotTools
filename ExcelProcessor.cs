@@ -13,10 +13,40 @@ namespace CotTools
     public class ExcelProcessor
     {
         /// <summary>
+        /// GetAssets
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        internal static IList<string> GetAssets(string fileName)
+        {
+            List<string> resultList = new List<string>();
+            
+                Workbook workbook = new Workbook(fileName);
+            Cells cells = workbook.Worksheets[0].Cells;
+            int rowCount = cells.MaxDataRow;
+            cells.RemoveDuplicates(1, 0, rowCount, 0);
+
+            for (int row = 1; row <= rowCount; row++)
+            {
+                var cellValue = cells[row, 0].Value;
+                if(cellValue == null)
+                {
+                    continue;
+                }
+                resultList.Add(cellValue.ToString());
+            }
+
+            return resultList;
+        }
+
+        /// <summary>
         /// Financials
         /// </summary>
         public partial class Financials : ConverterBase
         {
+
+            internal delegate string Logic(Worksheet worksheet, int columnDate, int columnLong, int columnShort);
+
             /// <summary>
             /// ProcessForexNet
             /// </summary>
@@ -81,34 +111,89 @@ namespace CotTools
             }
 
             /// <summary>
+            /// ProcessDealerChangeInverted
+            /// </summary>
+            /// <param name="fileName"></param>
+            /// <returns></returns>
+            internal static string ProcessDealerChangeInverted(string fileName)
+            {
+                CftcFinancialsWorkbook workbook = new CftcFinancialsWorkbook(fileName);
+                var colDate = workbook.IndexOfDate;
+                var colLong = workbook.IndexOfDealerLong;
+                var colShort = workbook.IndexOfDealerShort;
+                stringBuilder.Clear();
+
+                Logic logic = (worksheet, columnDate, columnLong, columnShort) =>
+                {
+                    // For each line in Excel
+                    Cells cells = worksheet.Cells;
+                    int rowCount = cells.MaxDataRow;
+                    int netValueBefore = 0, changeValue;
+                    for (int row = rowCount; row >= 1; row--)
+                    {
+                        var dateString = worksheet.Cells[row, columnDate].Value.ToString();
+                        var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
+                        var longValue = Convert.ToInt32(worksheet.Cells[row, columnLong].Value);
+                        var shortValue = Convert.ToInt32(worksheet.Cells[row, columnShort].Value);
+                        var netValue = -1 * (longValue - shortValue);
+
+                        if (row == rowCount)
+                        {
+                            netValueBefore = netValue;
+                            continue;
+                        }
+                        else
+                        {
+                            changeValue = netValue - netValueBefore;
+                        }
+
+                        // Fill string builder
+                        stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{changeValue}{Environment.NewLine}");
+                    }
+
+                    return stringBuilder.ToString();
+                };
+
+                return logic(workbook.FirstWorksheet, colDate, colLong, colShort);
+            }
+
+            /// <summary>
             /// ProcessDealerInverted
             /// </summary>
             /// <param name="fileName"></param>
             internal static string ProcessDealerInverted(string fileName)
             {
-                CftcFinancialsWorkbook forexWorkbook = new CftcFinancialsWorkbook(fileName);
+                CftcFinancialsWorkbook workbook = new CftcFinancialsWorkbook(fileName);
+                var colDate = workbook.IndexOfDate;
+                var colLong = workbook.IndexOfDealerLong;
+                var colShort = workbook.IndexOfDealerShort;
+                stringBuilder.Clear();
 
-                var colDate = forexWorkbook.IndexOfDate;
-                var colDealerLong = forexWorkbook.IndexOfDealerLong;
-                var colDealerShort = forexWorkbook.IndexOfDealerShort;
-
-                // For each line in Excel
-                Cells cells = forexWorkbook.FirstWorksheet.Cells;
-                int rowCount = cells.MaxDataRow;
-                for (int row = 1; row <= rowCount; row++)
+                Logic logic = (worksheet, columnDate, columnLong, columnShort) =>
                 {
-                    var dateString = forexWorkbook.FirstWorksheet.Cells[row, colDate].Value.ToString();
-                    var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
-                    var longValue = Convert.ToInt32(forexWorkbook.FirstWorksheet.Cells[row, colDealerLong].Value);
-                    var shortValue = Convert.ToInt32(forexWorkbook.FirstWorksheet.Cells[row, colDealerShort].Value);
-                    var netValue = longValue - shortValue;
+                    // For each line in Excel
+                    Cells cells = worksheet.Cells;
+                    int rowCount = cells.MaxDataRow;
+                    for (int row = 1; row <= rowCount; row++)
+                    {
+                        var dateString = worksheet.Cells[row, columnDate].Value.ToString();
+                        var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
+                        var longValue = Convert.ToInt32(worksheet.Cells[row, columnLong].Value);
+                        var shortValue = Convert.ToInt32(worksheet.Cells[row, columnShort].Value);
+                        var netValue = -1 * (longValue - shortValue);
 
-                    // Fill string builder
-                    stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{netValue}{Environment.NewLine}");
-                }
+                        // Fill string builder
+                        stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{netValue}{Environment.NewLine}");
+                    }
 
-                return stringBuilder.ToString();
+                    return stringBuilder.ToString();
+                };
+
+                return logic(workbook.FirstWorksheet, colDate, colLong, colShort);
             }
+
+
+
 
             public static void Example(string fileWithPath)
             {
@@ -150,5 +235,7 @@ namespace CotTools
             }
 
         }
+
+
     }
 }
