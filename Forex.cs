@@ -4,6 +4,9 @@ using System.Text;
 
 namespace CotTools
 {
+    /// <summary>
+    /// Forex
+    /// </summary>
     public class Forex
     {
         private static IList<string> _pairs = new List<string> { "EURUSD", "AUDUSD", "USDCAD", "USDCHF", "GBPUSD", "USDJPY",
@@ -21,6 +24,9 @@ namespace CotTools
         public static string JPY => "JPY";
         public static string USD => "USD";
 
+        /// <summary>
+        /// Pairs
+        /// </summary>
         public static IList<string> Pairs => _pairs;
 
     }

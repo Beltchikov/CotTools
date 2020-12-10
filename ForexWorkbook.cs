@@ -5,7 +5,10 @@ using System.Text;
 
 namespace CotTools
 {
-    public class ForexWorkbook 
+    /// <summary>
+    /// ForexWorkbook
+    /// </summary>
+    public class ForexWorkbook
     {
         Workbook _workbook;
         public ForexWorkbook(string fileWithPath)
@@ -16,7 +19,7 @@ namespace CotTools
         /// <summary>
         /// Validate
         /// </summary>
-        /// <returns Returns empty string if validation succesfull.</returns>
+        /// <returns> Returns empty string if validation succesfull.</returns>
         public string Validate()
         {
             if (WorksheetEur == null)
@@ -46,13 +49,11 @@ namespace CotTools
 
             return string.Empty;
         }
-
         public Worksheet WorksheetEur => _workbook.Worksheets[Forex.EUR];
         public Worksheet WorksheetAud => _workbook.Worksheets[Forex.AUD];
         public Worksheet WorksheetCad => _workbook.Worksheets[Forex.CAD];
         public Worksheet WorksheetChf => _workbook.Worksheets[Forex.CHF];
         public Worksheet WorksheetGbp => _workbook.Worksheets[Forex.GBP];
         public Worksheet WorksheetJpy => _workbook.Worksheets[Forex.JPY];
-
     }
 }

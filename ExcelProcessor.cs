@@ -192,9 +192,10 @@ namespace CotTools
                 return logic(workbook.FirstWorksheet, colDate, colLong, colShort);
             }
 
-
-
-
+            /// <summary>
+            /// Example
+            /// </summary>
+            /// <param name="fileWithPath"></param>
             public static void Example(string fileWithPath)
             {
                 //Open your template file.
@@ -235,7 +236,5 @@ namespace CotTools
             }
 
         }
-
-
     }
 }

@@ -5,23 +5,30 @@ using System.Text;
 
 namespace CotTools
 {
+    /// <summary>
+    /// CftcFinancialsWorkbook
+    /// </summary>
     public class CftcFinancialsWorkbook
     {
-        Workbook _workbook;
-        public CftcFinancialsWorkbook(string fileWithPath)
-        {
-            _workbook = new Workbook(fileWithPath);
-        }
-        
-        public Worksheet FirstWorksheet => _workbook.Worksheets[0];
+        private Workbook _workbook;
 
         public const string COLUMN_DATE = "Report_Date_as_MM_DD_YYYY";
         public const string COLUMN_DEALER_LONG = "Dealer_Positions_Long_All";
         public const string COLUMN_DEALER_SHORT = "Dealer_Positions_Short_All";
+
+        /// <summary>
+        /// CftcFinancialsWorkbook
+        /// </summary>
+        /// <param name="fileWithPath"></param>
+        public CftcFinancialsWorkbook(string fileWithPath)
+        {
+            _workbook = new Workbook(fileWithPath);
+        }
+
+        public Worksheet FirstWorksheet => _workbook.Worksheets[0];
         public int IndexOfDate => IndexOfColumn(COLUMN_DATE);
-        public int IndexOfDealerLong=> IndexOfColumn(COLUMN_DEALER_LONG);
-        public int IndexOfDealerShort=> IndexOfColumn(COLUMN_DEALER_SHORT);
-     
+        public int IndexOfDealerLong => IndexOfColumn(COLUMN_DEALER_LONG);
+        public int IndexOfDealerShort => IndexOfColumn(COLUMN_DEALER_SHORT);
 
         /// <summary>
         /// IndexOfColumn
@@ -38,8 +45,6 @@ namespace CotTools
 
             return cell.Column;
         }
-
-
     }
 }
 

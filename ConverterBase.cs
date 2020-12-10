@@ -74,7 +74,5 @@ namespace CotTools
 
             return kvpMaxMin;
         }
-
-        
     }
 }
