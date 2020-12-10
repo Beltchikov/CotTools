@@ -1,6 +1,7 @@
 ﻿using CotTools.Commands;
 using CotTools.Model;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -13,6 +14,7 @@ namespace CotTools.ViewModels
     /// </summary>
     public class MainWindowViewModel : INotifyPropertyChanged
     {
+        private ObservableCollection<string> assets;
         private string selectedAssetGroupName;
         private string selectedScenario;
         private AssetGroups assetGroups;
@@ -22,6 +24,8 @@ namespace CotTools.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
+            Assets = new ObservableCollection<string>();
+
             assetGroups = new AssetGroups();
 
             AssetGroups = new ObservableCollection<string>(assetGroups.Names);
@@ -30,6 +34,19 @@ namespace CotTools.ViewModels
             SelectedScenario = Scenarios[0];
 
             CommandRequestNavigate = new CommandRequestNavigate();
+        }
+
+        public ObservableCollection<string> Assets
+        {
+            get
+            {
+                return assets;
+            }
+            set
+            {
+                assets = value;
+                NotifyPropertyChanged();
+            }
         }
 
         /// <summary>

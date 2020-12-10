@@ -17,11 +17,11 @@ namespace CotTools
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        internal static IList<string> GetAssets(string fileName)
+        internal static List<string> GetAssets(string fileName)
         {
             List<string> resultList = new List<string>();
-            
-                Workbook workbook = new Workbook(fileName);
+
+            Workbook workbook = new Workbook(fileName);
             Cells cells = workbook.Worksheets[0].Cells;
             int rowCount = cells.MaxDataRow;
             cells.RemoveDuplicates(1, 0, rowCount, 0);
@@ -29,7 +29,7 @@ namespace CotTools
             for (int row = 1; row <= rowCount; row++)
             {
                 var cellValue = cells[row, 0].Value;
-                if(cellValue == null)
+                if (cellValue == null)
                 {
                     continue;
                 }

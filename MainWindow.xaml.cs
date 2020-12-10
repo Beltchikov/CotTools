@@ -1,6 +1,7 @@
 ﻿using CotTools.Model;
 using CotTools.ViewModels;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 
 namespace CotTools
@@ -28,13 +29,14 @@ namespace CotTools
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
+
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 lblFile.Content = files[0];
 
                 string assetGroup = cmbAssetGroups.Text;
                 string scenario = cmbScenario.Text;
 
-                var assets = ExcelProcessor.GetAssets(files[0]);
+                (DataContext as MainWindowViewModel).Assets = new ObservableCollection<string>(ExcelProcessor.GetAssets(files[0]));
 
 
                 string processResult;
@@ -56,14 +58,15 @@ namespace CotTools
 
                 txtResult.Text = string.Empty;
                 txtResult.Text = processResult;
+
             }
         }
 
         private string ProcessFinancials(string fileName, string scenario)
         {
-            
 
-             switch (scenario)
+
+            switch (scenario)
             {
                 case Scenario.DEALERINVERTED:
                     return ExcelProcessor.Financials.ProcessDealerInverted(fileName);

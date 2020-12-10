@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CotTools"
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         mc:Ignorable="d"
-        Title="COT Tools" Height="450" Width="800" WindowStyle="SingleBorderWindow">
+        Title="COT Tools" Height="750" Width="1200" WindowStyle="SingleBorderWindow">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF2F5F6A" Offset="0.069"/>
@@ -89,14 +89,15 @@
                     Margin="5,5,5,5">
             <Menu x:Name="mnuScenarios"
                   Width=" auto"
-                  MinWidth="100" Background="#FF2789DE">
+                  MinWidth="100" 
+                  Background="#FF2789DE"
+                  ItemsSource="{Binding Assets , Mode=OneWay,
+                diag:PresentationTraceSources.TraceLevel=High}">
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
-                <MenuItem Header="sss"></MenuItem>
-                <MenuItem Header="ddd"></MenuItem>
             </Menu>
             <TextBox x:Name="txtResult"
                  VerticalScrollBarVisibility="Auto"
