@@ -60,8 +60,6 @@
                      Text="{Binding AssetFilter, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
 
-
-
         <DockPanel x:Name="panAssets" 
                     Grid.Row="3" 
                     Grid.Column="0"

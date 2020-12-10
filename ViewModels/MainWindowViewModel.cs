@@ -30,18 +30,12 @@ namespace CotTools.ViewModels
             AssetsFilteredProperty = DependencyProperty.Register("AssetsFiltered", typeof(List<string>), typeof(MainWindowViewModel), new PropertyMetadata(null));
         }
 
-       
-
         /// <summary>
         /// MainWindowViewModel
         /// </summary>
         public MainWindowViewModel()
         {
             CommandRequestNavigate = new CommandRequestNavigate();
-
-
-            // Test
-            //AssetsFiltered = new List<string> { "dfasfd", "sgsdfbdsf" };
         }
 
         /// <summary>
@@ -62,24 +56,20 @@ namespace CotTools.ViewModels
             set { SetValue(AssetFilterProperty, value); }
         }
 
-
-        
-        
+        /// <summary>
+        /// AssetsFiltered
+        /// </summary>
         public List<string> AssetsFiltered
         {
-            //get
-            //{
-            //    return String.IsNullOrWhiteSpace(AssetFilter)
-            //        ? Assets
-            //        : Assets.Where(a => a.Contains(AssetFilter)).ToList();
-            //}
-
-            
-
             get { return (List<string>)GetValue(AssetsFilteredProperty); }
             set { SetValue(AssetsFilteredProperty, value); }
         }
 
+        /// <summary>
+        /// AssetPropertyChanged
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
         private static void AssetPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             MainWindowViewModel instance = d as MainWindowViewModel;
@@ -91,6 +81,11 @@ namespace CotTools.ViewModels
             instance.SetCurrentValue(AssetsFilteredProperty, instance.Assets);
         }
 
+        /// <summary>
+        /// AssetFilterPropertyChanged
+        /// </summary>
+        /// <param name="dependencyObject"></param>
+        /// <param name="e"></param>
         public static void AssetFilterPropertyChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
             MainWindowViewModel instance = dependencyObject as MainWindowViewModel;
