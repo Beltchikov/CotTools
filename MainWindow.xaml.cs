@@ -1,6 +1,7 @@
 ﻿using CotTools.Model;
 using CotTools.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -36,7 +37,7 @@ namespace CotTools
                 //string assetGroup = cmbAssetGroups.Text;
                 //string scenario = cmbScenario.Text;
 
-                (DataContext as MainWindowViewModel).Assets = new ObservableCollection<string>(ExcelProcessor.GetAssets(files[0]));
+                (DataContext as MainWindowViewModel).Assets = new List<string>(ExcelProcessor.GetAssets(files[0]));
 
 
                 //string processResult;

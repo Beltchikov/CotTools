@@ -13,6 +13,8 @@
             <GradientStop Color="#FF8FB6BF" Offset="0.451"/>
         </LinearGradientBrush>
     </Window.Background>
+    <!--SelectedItem="{Binding SelectedScenario, 
+                diag:PresentationTraceSources.TraceLevel=High}"-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="800"></ColumnDefinition>
@@ -54,7 +56,8 @@
                     Background="green"
                     LastChildFill="True">
             <TextBlock Margin="5,5,5,5">Asset:</TextBlock>
-            <TextBox x:Name="txtAsset"/>
+            <TextBox x:Name="txtAsset" 
+                     Text="{Binding AssetFilter, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
 
 
@@ -67,7 +70,9 @@
                     Margin="5,5,5,5">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ListBox x:Name="listAssets"
-                         ItemsSource="{Binding Assets , Mode=OneWay}"
+                         ItemsSource="{Binding AssetsFiltered , 
+                            Mode=OneWay, 
+                            diag:PresentationTraceSources.TraceLevel=High}"
                          Background="#FF2789DE"
                          MinWidth="400" >
 
