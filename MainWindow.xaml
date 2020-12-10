@@ -15,13 +15,13 @@
     </Window.Background>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="800"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="35"></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
@@ -39,51 +39,29 @@
             https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalCompressed/index.htm
         </Hyperlink>
         </TextBlock>
-        <Label Content="Drop COT Excel Files Here:"
-               Grid.Row="2"
-               Grid.ColumnSpan="2"
-               x:Name="lblFile" ></Label>
 
         <StackPanel x:Name="panFile"
             AllowDrop="True" 
-                    Grid.Row="3"
-                    Margin="5,5,5,5"
-                    Drop="panFile_Drop" Background="Gainsboro"
-                    />
-        <StackPanel Orientation="Horizontal"
                     Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    Margin="5,5,5,5">
-            <ComboBox x:Name="cmbAssetGroups"
-                      Width="150"
-                      Margin="0,0,20,0"
-                      Height="22"
-                      SelectedIndex="0"
-                      VerticalAlignment="Center"
-                      ItemsSource="{Binding AssetGroups}" 
-                      SelectedItem="{Binding SelectedAssetGroup}">
-            </ComboBox>
-
-
-            <ComboBox x:Name="cmbScenario"
-                      Width="150"
-                      Margin="0,0,20,0"
-                      Height="22"
-                      SelectedIndex="0"
-                      VerticalAlignment="Center"
-                      ItemsSource="{Binding Scenarios}"
-                      SelectedItem="{Binding SelectedScenario}">
-                <!--SelectedItem="{Binding SelectedScenario, 
-                diag:PresentationTraceSources.TraceLevel=High}"-->
-
-            </ComboBox>
-
-
-
+                    Margin="5,5,5,5"
+                    Drop="panFile_Drop" Background="Gainsboro">
+            <TextBlock x:Name="txtDropHint">Drop COT Excel Files Here:</TextBlock>
         </StackPanel>
-        <DockPanel x:Name="panResults" 
+
+        <DockPanel x:Name="panSelectAsset"
+                    Grid.Row="2"
+                    Margin="5,5,5,5"
+                    Background="green"
+                    LastChildFill="True">
+            <TextBlock Margin="5,5,5,5">Asset:</TextBlock>
+            <TextBox x:Name="txtAsset"/>
+        </DockPanel>
+
+
+
+        <DockPanel x:Name="panAssets" 
                     Grid.Row="3" 
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Background="Aquamarine"
                     LastChildFill="True"
                     Margin="5,5,5,5">
@@ -92,14 +70,20 @@
                          ItemsSource="{Binding Assets , Mode=OneWay}"
                          Background="#FF2789DE"
                          MinWidth="400" >
-                    
+
                 </ListBox>
-               </ScrollViewer>
-            <TextBox x:Name="txtResult"
-                 VerticalScrollBarVisibility="Auto"
-                 Background="Gainsboro">
-            </TextBox>
+            </ScrollViewer>
+            
         </DockPanel>
+
+        <TextBox x:Name="txtResult"
+                 Grid.Column="1"
+                 Grid.Row="1"
+                 Grid.RowSpan="3"
+                 VerticalScrollBarVisibility="Auto"
+                 Background="Gainsboro"
+                 Margin="5,5,5,5">
+        </TextBox>
 
     </Grid>
 </Window>

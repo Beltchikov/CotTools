@@ -31,33 +31,33 @@ namespace CotTools
             {
 
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                lblFile.Content = files[0];
+                txtDropHint.Text = files[0];
 
-                string assetGroup = cmbAssetGroups.Text;
-                string scenario = cmbScenario.Text;
+                //string assetGroup = cmbAssetGroups.Text;
+                //string scenario = cmbScenario.Text;
 
                 (DataContext as MainWindowViewModel).Assets = new ObservableCollection<string>(ExcelProcessor.GetAssets(files[0]));
 
 
-                string processResult;
-                switch (assetGroup)
-                {
-                    case AssetGroup.FINANCIALS:
-                        processResult = ProcessFinancials(files[0], scenario);
-                        break;
-                    case AssetGroup.DISAGGREGATED:
-                        throw new NotImplementedException();
-                    default:
-                        throw new NotImplementedException();
-                }
+                //string processResult;
+                //switch (assetGroup)
+                //{
+                //    case AssetGroup.FINANCIALS:
+                //        processResult = ProcessFinancials(files[0], scenario);
+                //        break;
+                //    case AssetGroup.DISAGGREGATED:
+                //        throw new NotImplementedException();
+                //    default:
+                //        throw new NotImplementedException();
+                //}
 
 
                 // TODO
                 //bool invertResults = false; 
                 //txtResult.Text = ExcelProcessor.Financials.ProcessForexNet(files[0], 0, 0, invertResults);
 
-                txtResult.Text = string.Empty;
-                txtResult.Text = processResult;
+                //txtResult.Text = string.Empty;
+                //txtResult.Text = processResult;
 
             }
         }
