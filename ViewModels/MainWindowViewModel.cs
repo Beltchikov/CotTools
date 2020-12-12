@@ -94,9 +94,16 @@ namespace CotTools.ViewModels
                 return;
             }
 
-            var filteredAssets = instance.Assets.Where(a => a.Contains(instance.AssetFilter));
-            if (filteredAssets.Any())
+            if (String.IsNullOrWhiteSpace(instance.AssetFilter))
             {
+                instance.SetCurrentValue(AssetsFilteredProperty, instance.Assets);
+            }
+            else
+            {
+                string filter1 = instance.AssetFilter.ToLower();
+                string filter2 = instance.AssetFilter.ToUpper();
+
+                var filteredAssets = instance.Assets.Where(a => a.Contains(filter1) || a.Contains(filter2));
                 instance.SetCurrentValue(AssetsFilteredProperty, filteredAssets.ToList());
             }
         }
