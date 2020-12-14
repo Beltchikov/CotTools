@@ -72,11 +72,19 @@
                             Mode=OneWay, 
                             diag:PresentationTraceSources.TraceLevel=High}"
                          Background="#FF2789DE"
-                         MinWidth="400" >
-
+                         MinWidth="400">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <Hyperlink Command="">
+                                    <TextBlock Text="{Binding}"/>
+                                </Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </ScrollViewer>
-            
+
         </DockPanel>
 
         <TextBox x:Name="txtResult"
