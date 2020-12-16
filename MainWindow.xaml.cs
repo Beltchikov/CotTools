@@ -39,11 +39,6 @@ namespace CotTools
                 string processResult = ExcelProcessor.Financials.ProcessDealerChangeInverted(files[0]);
                 txtDealerInverted.Text = processResult;
 
-
-                // TODO
-
-                //txtResult.Text = processResult;
-
                 // Old version with Forex
                 //bool invertResults = false; 
                 //txtResult.Text = ExcelProcessor.Financials.ProcessForexNet(files[0], 0, 0, invertResults);

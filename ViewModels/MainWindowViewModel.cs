@@ -38,7 +38,9 @@ namespace CotTools.ViewModels
             CommandRequestNavigate = new CommandRequestNavigate();
         }
 
-
+        /// <summary>
+        /// DEALERINVERTED
+        /// </summary>
         public string DEALERINVERTED
         {
             get
@@ -47,6 +49,9 @@ namespace CotTools.ViewModels
             }
         }
 
+        /// <summary>
+        /// DEALERCHANGEINVERTED
+        /// </summary>
         public string DEALERCHANGEINVERTED
         {
             get
@@ -55,6 +60,9 @@ namespace CotTools.ViewModels
             }
         }
 
+        /// <summary>
+        /// ASSETMANAGER
+        /// </summary>
         public string ASSETMANAGER
         {
             get
@@ -63,6 +71,9 @@ namespace CotTools.ViewModels
             }
         }
 
+        /// <summary>
+        /// ASSETMANAGERCHANGE
+        /// </summary>
         public string ASSETMANAGERCHANGE
         {
             get
@@ -71,6 +82,9 @@ namespace CotTools.ViewModels
             }
         }
 
+        /// <summary>
+        /// LEVERAGED
+        /// </summary>
         public string LEVERAGED
         {
             get
@@ -79,6 +93,9 @@ namespace CotTools.ViewModels
             }
         }
 
+        /// <summary>
+        /// LEVERAGEDCHANGED
+        /// </summary>
         public string LEVERAGEDCHANGED
         {
             get
@@ -113,8 +130,6 @@ namespace CotTools.ViewModels
             get { return (List<string>)GetValue(AssetsFilteredProperty); }
             set { SetValue(AssetsFilteredProperty, value); }
         }
-
-
 
         /// <summary>
         /// AssetPropertyChanged
