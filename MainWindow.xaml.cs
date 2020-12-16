@@ -38,6 +38,7 @@ namespace CotTools
 
                 string processResult = ExcelProcessor.Financials.ProcessDealerChangeInverted(files[0]);
                 txtDealerInverted.Text = processResult;
+                txtDropHint.FontSize = 12;
 
                 // Old version with Forex
                 //bool invertResults = false; 

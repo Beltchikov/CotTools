@@ -42,19 +42,28 @@
         </Hyperlink>
         </TextBlock>
 
-        <StackPanel x:Name="panFile"
+        <DockPanel x:Name="panFile" LastChildFill="True"
             AllowDrop="True" 
                     Grid.Row="1"
                     Margin="5,5,5,5"
                     Drop="panFile_Drop" Background="Gainsboro">
-            <TextBlock x:Name="txtDropHint">Drop COT Excel Files Here:</TextBlock>
-        </StackPanel>
+            <TextBlock x:Name="txtDropHint" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="30"
+                       FontWeight="Bold">Drop COT Excel Files Here</TextBlock>
+        </DockPanel>
 
         <DockPanel x:Name="panSelectAsset"
                     Grid.Row="2"
                     Margin="5,5,5,5"
-                    Background="green"
                     LastChildFill="True">
+            <DockPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2F5F6A" Offset="0.069"/>
+                    <GradientStop Color="#FF8FB6BF" Offset="0.451"/>
+                </LinearGradientBrush>
+            </DockPanel.Background>
             <TextBlock Margin="5,5,5,5">Asset:</TextBlock>
             <TextBox x:Name="txtAsset" 
                      Text="{Binding AssetFilter, UpdateSourceTrigger=PropertyChanged}"/>
@@ -70,7 +79,7 @@
                 <ListBox x:Name="listAssets"
                          ItemsSource="{Binding AssetsFiltered , 
                             Mode=OneWay}"
-                         Background="#FF2789DE"
+                         Background="#FFB2C7DA"
                          MinWidth="400">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
@@ -90,9 +99,14 @@
                     Grid.Row="1" 
                     Grid.Column="2"
                    Grid.RowSpan="3"
-                    Background="Aquamarine"
                     LastChildFill="True"
                     Margin="5,5,5,5">
+            <DockPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2F5F6A" Offset="0.069"/>
+                    <GradientStop Color="#FF8FB6BF" Offset="0.451"/>
+                </LinearGradientBrush>
+            </DockPanel.Background>
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical">
                     <Label x:Name="lblDealerInverted" 
@@ -105,7 +119,7 @@
                                      Height="80px"
                                      Text="">
                     </TextBox>
-                    
+
                     <Label x:Name="lblDealerChangeInverted" 
                            Content="{Binding Path=DEALERCHANGEINVERTED}">
                     </Label>
