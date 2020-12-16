@@ -3,6 +3,7 @@ using CotTools.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace CotTools
@@ -36,7 +37,12 @@ namespace CotTools
                 (DataContext as MainWindowViewModel).Assets = new List<string>(ExcelProcessor.GetAssets(files[0]));
 
                 string processResult = ExcelProcessor.Financials.ProcessDealerChangeInverted(files[0]);
-                txtResult.Text = processResult;
+                txtDealerInverted.Text = processResult;
+
+
+                // TODO
+
+                //txtResult.Text = processResult;
 
                 // Old version with Forex
                 //bool invertResults = false; 

@@ -9,12 +9,12 @@ namespace CotTools.Model
     /// </summary>
     public class Scenario
     {
-        public const string DEALERINVERTED = "DealerInverted";
-        public const string DEALERCHANGEINVERTED = "DealerChangeInverted";
-        public const string ASSETMANAGER = "AssetManager";
-        public const string ASSETMANAGERCHANGE = "AssetManagerChange";
+        public const string DEALERINVERTED = "Dealer Inverted";
+        public const string DEALERCHANGEINVERTED = "Dealer Change Inverted";
+        public const string ASSETMANAGER = "Asset Manager";
+        public const string ASSETMANAGERCHANGE = "Asset Manager Change";
         public const string LEVERAGED = "Leveraged";
-        public const string LEVERAGEDCHANGED = "LeveragedChanged";
+        public const string LEVERAGEDCHANGED = "Leveraged Changed";
 
     }
 }

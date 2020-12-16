@@ -69,8 +69,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ListBox x:Name="listAssets"
                          ItemsSource="{Binding AssetsFiltered , 
-                            Mode=OneWay, 
-                            diag:PresentationTraceSources.TraceLevel=High}"
+                            Mode=OneWay}"
                          Background="#FF2789DE"
                          MinWidth="400">
                     <ListBox.ItemTemplate>
@@ -87,14 +86,84 @@
 
         </DockPanel>
 
-        <TextBox x:Name="txtResult"
-                 Grid.Column="1"
-                 Grid.Row="1"
-                 Grid.RowSpan="3"
-                 VerticalScrollBarVisibility="Auto"
-                 Background="Gainsboro"
-                 Margin="5,5,5,5">
-        </TextBox>
+        <DockPanel x:Name="panResults" 
+                    Grid.Row="1" 
+                    Grid.Column="2"
+                   Grid.RowSpan="3"
+                    Background="Aquamarine"
+                    LastChildFill="True"
+                    Margin="5,5,5,5">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical">
+                    <Label x:Name="lblDealerInverted" 
+                           Content="{Binding Path=DEALERINVERTED}">
+                    </Label>
+                    <TextBox x:Name="txtDealerInverted"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Background="Gainsboro"
+                                     Margin="5,5,5,5"
+                                     Height="80px"
+                                     Text="">
+                    </TextBox>
+                    
+                    <Label x:Name="lblDealerChangeInverted" 
+                           Content="{Binding Path=DEALERCHANGEINVERTED}">
+                    </Label>
+                    <TextBox x:Name="txtDealerChangeInverted"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Background="Gainsboro"
+                                     Margin="5,5,5,5"
+                                     Height="80px"
+                                     Text="">
+                    </TextBox>
+
+                    <Label x:Name="lblAssetManager" 
+                           Content="{Binding Path=ASSETMANAGER}">
+                    </Label>
+                    <TextBox x:Name="txtAssetManager"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Background="Gainsboro"
+                                     Margin="5,5,5,5"
+                                     Height="80px"
+                                     Text="">
+                    </TextBox>
+
+                    <Label x:Name="lblAssetManagerChange" 
+                           Content="{Binding Path=ASSETMANAGERCHANGE}">
+                    </Label>
+                    <TextBox x:Name="txtAssetManagerChange"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Background="Gainsboro"
+                                     Margin="5,5,5,5"
+                                     Height="80px"
+                                     Text="">
+                    </TextBox>
+
+                    <Label x:Name="lblLeveraged" 
+                           Content="{Binding Path=LEVERAGED}">
+                    </Label>
+                    <TextBox x:Name="txtLeveraged"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Background="Gainsboro"
+                                     Margin="5,5,5,5"
+                                     Height="80px"
+                                     Text="">
+                    </TextBox>
+
+                    <Label x:Name="lblLeveragedChanged" 
+                           Content="{Binding Path=LEVERAGEDCHANGED}">
+                    </Label>
+                    <TextBox x:Name="txtLeveragedChanged"
+                                     VerticalScrollBarVisibility="Auto"
+                                     Background="Gainsboro"
+                                     Margin="5,5,5,5"
+                                     Height="80px"
+                                     Text="">
+                    </TextBox>
+                </StackPanel>
+            </ScrollViewer>
+
+        </DockPanel>
 
     </Grid>
 </Window>

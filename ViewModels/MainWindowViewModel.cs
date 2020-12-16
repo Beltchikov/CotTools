@@ -38,6 +38,55 @@ namespace CotTools.ViewModels
             CommandRequestNavigate = new CommandRequestNavigate();
         }
 
+
+        public string DEALERINVERTED
+        {
+            get
+            {
+                return "Dealer Inverted";
+            }
+        }
+
+        public string DEALERCHANGEINVERTED
+        {
+            get
+            {
+                return "Dealer Change Inverted";
+            }
+        }
+
+        public string ASSETMANAGER
+        {
+            get
+            {
+                return "Asset Manager";
+            }
+        }
+
+        public string ASSETMANAGERCHANGE
+        {
+            get
+            {
+                return "Asset Manager Change";
+            }
+        }
+
+        public string LEVERAGED
+        {
+            get
+            {
+                return "Leveraged";
+            }
+        }
+
+        public string LEVERAGEDCHANGED
+        {
+            get
+            {
+                return "Leveraged Changed";
+            }
+        }
+
         /// <summary>
         /// Assets
         /// </summary>
@@ -64,6 +113,8 @@ namespace CotTools.ViewModels
             get { return (List<string>)GetValue(AssetsFilteredProperty); }
             set { SetValue(AssetsFilteredProperty, value); }
         }
+
+
 
         /// <summary>
         /// AssetPropertyChanged
