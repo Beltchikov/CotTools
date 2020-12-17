@@ -36,6 +36,7 @@ namespace CotTools.ViewModels
         public MainWindowViewModel()
         {
             CommandRequestNavigate = new CommandRequestNavigate();
+            CommandProcessAsset = new CommandProcessAsset();
         }
 
         /// <summary>
@@ -174,10 +175,9 @@ namespace CotTools.ViewModels
             }
         }
 
-        /// <summary>
-        /// CommandRequestNavigate
-        /// </summary>
+       
         public ICommand CommandRequestNavigate { get; set; }
+        public ICommand CommandProcessAsset{ get; set; }
 
         // Variant with INotifyPropertyChanged
 

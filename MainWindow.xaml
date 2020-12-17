@@ -77,14 +77,16 @@
                     Margin="5,5,5,5">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ListBox x:Name="listAssets"
-                         ItemsSource="{Binding AssetsFiltered , 
+                         ItemsSource="{Binding AssetsFiltered, 
                             Mode=OneWay}"
                          Background="#FFB2C7DA"
                          MinWidth="400">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock>
-                                <Hyperlink Command="">
+                                <Hyperlink Command="{Binding DataContext.CommandProcessAsset,
+                                    RelativeSource={RelativeSource AncestorType=ListBox}}"
+                                           CommandParameter="{Binding}">
                                     <TextBlock Text="{Binding}"/>
                                 </Hyperlink>
                             </TextBlock>
