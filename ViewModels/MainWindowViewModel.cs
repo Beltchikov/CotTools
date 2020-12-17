@@ -1,9 +1,10 @@
-﻿using CotTools.Commands;
+﻿using Aspose.Cells;
 using CotTools.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -19,6 +20,10 @@ namespace CotTools.ViewModels
         public static readonly DependencyProperty AssetsProperty;
         public static readonly DependencyProperty AssetFilterProperty;
         public static readonly DependencyProperty AssetsFilteredProperty;
+        public static readonly DependencyProperty AssertSelectedProperty;
+
+        public RelayCommand CommandRequestNavigate { get; set; }
+        public RelayCommand CommandProcessAsset { get; set; }
 
         /// <summary>
         /// MainWindowViewModel
@@ -28,6 +33,7 @@ namespace CotTools.ViewModels
             AssetsProperty = DependencyProperty.Register("Assets", typeof(List<string>), typeof(MainWindowViewModel), new PropertyMetadata(null, AssetPropertyChanged));
             AssetFilterProperty = DependencyProperty.Register("AssetFilter", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty, AssetFilterPropertyChanged));
             AssetsFilteredProperty = DependencyProperty.Register("AssetsFiltered", typeof(List<string>), typeof(MainWindowViewModel), new PropertyMetadata(null));
+            AssertSelectedProperty = DependencyProperty.Register("AssertSelected", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
         }
 
         /// <summary>
@@ -35,8 +41,14 @@ namespace CotTools.ViewModels
         /// </summary>
         public MainWindowViewModel()
         {
-            CommandRequestNavigate = new CommandRequestNavigate();
-            CommandProcessAsset = new CommandProcessAsset();
+            CommandRequestNavigate = new RelayCommand(p => { Process.Start(new ProcessStartInfo(((Uri)p).AbsoluteUri) { UseShellExecute = true }); });
+            CommandProcessAsset = new RelayCommand(ProcessAsset);
+        }
+
+        // TODO
+        void ProcessAsset(object parameter)
+        {
+
         }
 
         /// <summary>
@@ -106,6 +118,11 @@ namespace CotTools.ViewModels
         }
 
         /// <summary>
+        /// WorkbookFinancials
+        /// </summary>
+        public Workbook WorkbookFinancials { get; set; }
+
+        /// <summary>
         /// Assets
         /// </summary>
         public List<string> Assets
@@ -130,6 +147,15 @@ namespace CotTools.ViewModels
         {
             get { return (List<string>)GetValue(AssetsFilteredProperty); }
             set { SetValue(AssetsFilteredProperty, value); }
+        }
+
+        /// <summary>
+        /// AssertSelected
+        /// </summary>
+        public string AssertSelected
+        {
+            get { return (string)GetValue(AssertSelectedProperty); }
+            set { SetValue(AssertSelectedProperty, value); }
         }
 
         /// <summary>
@@ -175,9 +201,8 @@ namespace CotTools.ViewModels
             }
         }
 
-       
-        public ICommand CommandRequestNavigate { get; set; }
-        public ICommand CommandProcessAsset{ get; set; }
+
+
 
         // Variant with INotifyPropertyChanged
 
