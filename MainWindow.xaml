@@ -119,7 +119,7 @@
                                      Background="Gainsboro"
                                      Margin="5,5,5,5"
                                      Height="80px"
-                                     Text="">
+                                     Text="{Binding ResultDealerInverted}">
                     </TextBox>
 
                     <Label x:Name="lblDealerChangeInverted" 

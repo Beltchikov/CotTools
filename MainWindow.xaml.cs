@@ -34,20 +34,11 @@ namespace CotTools
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
                 string fileName = files[0];
                 txtDropHint.Text = fileName;
+                txtDropHint.FontSize = 12;
 
                 (DataContext as MainWindowViewModel).FileName = fileName;
                 (DataContext as MainWindowViewModel).Assets = new List<string>(ExcelProcessor.GetAssets(fileName));
 
-                string processResult = ExcelProcessor.Financials.ProcessDealerChangeInverted(files[0]);
-                txtDealerInverted.Text = processResult;
-                txtDropHint.FontSize = 12;
-
-                // Old version with Forex
-                //bool invertResults = false; 
-                //txtResult.Text = ExcelProcessor.Financials.ProcessForexNet(files[0], 0, 0, invertResults);
-
-                //txtResult.Text = string.Empty;
-                //txtResult.Text = processResult;
             }
         }
     }

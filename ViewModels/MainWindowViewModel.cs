@@ -22,6 +22,7 @@ namespace CotTools.ViewModels
         public static readonly DependencyProperty AssetsFilteredProperty;
         public static readonly DependencyProperty AssertSelectedProperty;
         public static readonly DependencyProperty FileNameProperty;
+        public static readonly DependencyProperty ResultDealerInvertedProperty;
 
         public RelayCommand CommandRequestNavigate { get; set; }
         public RelayCommand CommandProcessAsset { get; set; }
@@ -36,7 +37,8 @@ namespace CotTools.ViewModels
             AssetsFilteredProperty = DependencyProperty.Register("AssetsFiltered", typeof(List<string>), typeof(MainWindowViewModel), new PropertyMetadata(null));
             AssertSelectedProperty = DependencyProperty.Register("AssertSelected", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             FileNameProperty = DependencyProperty.Register("FileName", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
-        }
+            ResultDealerInvertedProperty = DependencyProperty.Register("ResultDealerInverted", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
+    }
 
         /// <summary>
         /// MainWindowViewModel
@@ -47,12 +49,13 @@ namespace CotTools.ViewModels
             CommandProcessAsset = new RelayCommand(ProcessAsset);
         }
 
-        // TODO
-        void ProcessAsset(object asset)
+        /// <summary>
+        /// ProcessAsset
+        /// </summary>
+        /// <param name="asset"></param>
+        private void ProcessAsset(object asset)
         {
-            string processResult = ExcelProcessor.Financials.ProcessDealerInverted(FileName, asset);
-            // TODO
-            // txtDealerInverted binden
+            ResultDealerInverted = ExcelProcessor.Financials.ProcessDealerInverted(FileName, asset);
         }
 
         /// <summary>
@@ -125,6 +128,15 @@ namespace CotTools.ViewModels
         /// WorkbookFinancials
         /// </summary>
         public Workbook WorkbookFinancials { get; set; }
+
+        /// <summary>
+        /// ResultDealerInverted
+        /// </summary>
+        public string ResultDealerInverted
+        {
+            get { return (string)GetValue(ResultDealerInvertedProperty); }
+            set { SetValue(ResultDealerInvertedProperty, value); }
+        }
 
         /// <summary>
         /// FileName
