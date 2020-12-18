@@ -171,7 +171,6 @@ namespace CotTools
                 {
                     // For each line in Excel
                     int rowCount = cells.MaxDataRow;
-                    int netValueBefore = 0, changeValue;
                     for (int row = 0; row <= rowCount; row++) 
                     {
                         var asssetString = cells[row, 0].Value.ToString();
@@ -186,18 +185,8 @@ namespace CotTools
                         var shortValue = Convert.ToInt32(cells[row, columnShort].Value);
                         var netValue = -1 * (longValue - shortValue);
 
-                        if (row == rowCount)
-                        {
-                            netValueBefore = netValue;
-                            continue;
-                        }
-                        else
-                        {
-                            changeValue = netValue - netValueBefore;
-                        }
-
                         // Fill string builder
-                        stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{changeValue}{Environment.NewLine}");
+                        stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{netValue}{Environment.NewLine}");
                     }
 
                     return stringBuilder.ToString();
