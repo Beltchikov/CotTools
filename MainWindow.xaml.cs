@@ -32,9 +32,11 @@ namespace CotTools
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                txtDropHint.Text = files[0];
+                string fileName = files[0];
+                txtDropHint.Text = fileName;
 
-                (DataContext as MainWindowViewModel).Assets = new List<string>(ExcelProcessor.GetAssets(files[0]));
+                (DataContext as MainWindowViewModel).FileName = fileName;
+                (DataContext as MainWindowViewModel).Assets = new List<string>(ExcelProcessor.GetAssets(fileName));
 
                 string processResult = ExcelProcessor.Financials.ProcessDealerChangeInverted(files[0]);
                 txtDealerInverted.Text = processResult;

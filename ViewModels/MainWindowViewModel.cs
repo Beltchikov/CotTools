@@ -21,6 +21,7 @@ namespace CotTools.ViewModels
         public static readonly DependencyProperty AssetFilterProperty;
         public static readonly DependencyProperty AssetsFilteredProperty;
         public static readonly DependencyProperty AssertSelectedProperty;
+        public static readonly DependencyProperty FileNameProperty;
 
         public RelayCommand CommandRequestNavigate { get; set; }
         public RelayCommand CommandProcessAsset { get; set; }
@@ -34,6 +35,7 @@ namespace CotTools.ViewModels
             AssetFilterProperty = DependencyProperty.Register("AssetFilter", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty, AssetFilterPropertyChanged));
             AssetsFilteredProperty = DependencyProperty.Register("AssetsFiltered", typeof(List<string>), typeof(MainWindowViewModel), new PropertyMetadata(null));
             AssertSelectedProperty = DependencyProperty.Register("AssertSelected", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
+            FileNameProperty = DependencyProperty.Register("FileName", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
         }
 
         /// <summary>
@@ -46,9 +48,11 @@ namespace CotTools.ViewModels
         }
 
         // TODO
-        void ProcessAsset(object parameter)
+        void ProcessAsset(object asset)
         {
-
+            string processResult = ExcelProcessor.Financials.ProcessDealerInverted(FileName, asset);
+            // TODO
+            // txtDealerInverted binden
         }
 
         /// <summary>
@@ -121,6 +125,15 @@ namespace CotTools.ViewModels
         /// WorkbookFinancials
         /// </summary>
         public Workbook WorkbookFinancials { get; set; }
+
+        /// <summary>
+        /// FileName
+        /// </summary>
+        public string FileName
+        {
+            get { return (string)GetValue(FileNameProperty); }
+            set { SetValue(FileNameProperty, value); }
+        }
 
         /// <summary>
         /// Assets
@@ -200,8 +213,6 @@ namespace CotTools.ViewModels
                 instance.SetCurrentValue(AssetsFilteredProperty, filteredAssets.ToList());
             }
         }
-
-
 
 
         // Variant with INotifyPropertyChanged
