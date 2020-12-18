@@ -172,7 +172,7 @@ namespace CotTools
                     // For each line in Excel
                     int rowCount = cells.MaxDataRow;
                     int netValueBefore = 0, changeValue;
-                    for (int row = rowCount; row >= 1; row--)
+                    for (int row = 0; row <= rowCount; row++) 
                     {
                         var asssetString = cells[row, 0].Value.ToString();
                         if (asssetString != (string)asset)
