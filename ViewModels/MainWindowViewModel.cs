@@ -70,13 +70,13 @@ namespace CotTools.ViewModels
         }
 
         /// <summary>
-        /// DEALERCHANGEINVERTED
+        /// DEALERINVERTEDCHANGE
         /// </summary>
-        public string DEALERCHANGEINVERTED
+        public string DEALERINVERTEDCHANGE
         {
             get
             {
-                return "Dealer Change Inverted";
+                return "Dealer Inverted Change";
             }
         }
 

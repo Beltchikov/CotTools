@@ -122,10 +122,10 @@
                                      Text="{Binding ResultDealerInverted}">
                     </TextBox>
 
-                    <Label x:Name="lblDealerChangeInverted" 
-                           Content="{Binding Path=DEALERCHANGEINVERTED}">
+                    <Label x:Name="lblDealerInvertedChange" 
+                           Content="{Binding Path=DEALERINVERTEDCHANGE}">
                     </Label>
-                    <TextBox x:Name="txtDealerChangeInverted"
+                    <TextBox x:Name="txtDealerInvertedChange"
                                      VerticalScrollBarVisibility="Auto"
                                      Background="Gainsboro"
                                      Margin="5,5,5,5"
