@@ -130,7 +130,7 @@
                                      Background="Gainsboro"
                                      Margin="5,5,5,5"
                                      Height="80px"
-                                     Text="">
+                                     Text="{Binding ResultDealerInvertedChange}">
                     </TextBox>
 
                     <Label x:Name="lblAssetManager" 

@@ -45,31 +45,74 @@ namespace CotTools
         public partial class Financials : ConverterBase
         {
             internal delegate string Logic(Cells cells, int columnDate, int columnLong, int columnShort, string asset, bool invert);
+            internal delegate string LogicChange(Cells cells, int columnDate, int columnLong, int columnShort, string asset, bool invert);
 
             static Logic processingLogic = (cells, columnDate, columnLong, columnShort, asset, invert) =>
+            {
+                // For each line in Excel
+                int rowCount = cells.MaxDataRow;
+                for (int row = 0; row <= rowCount; row++)
                 {
-                    // For each line in Excel
-                    int rowCount = cells.MaxDataRow;
-                    for (int row = 0; row <= rowCount; row++)
+                    var asssetString = cells[row, 0].Value.ToString();
+                    if (asssetString != asset)
                     {
-                        var asssetString = cells[row, 0].Value.ToString();
-                        if (asssetString != asset)
-                        {
-                            continue;
-                        }
-
-                        var dateString = cells[row, columnDate].Value.ToString();
-                        var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
-                        var longValue = Convert.ToInt32(cells[row, columnLong].Value);
-                        var shortValue = Convert.ToInt32(cells[row, columnShort].Value);
-                        var netValue = invert  ? - 1 * (longValue - shortValue) : longValue - shortValue;
-
-                        // Fill string builder
-                        stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{netValue}{Environment.NewLine}");
+                        continue;
                     }
 
-                    return stringBuilder.ToString();
-                };
+                    var dateString = cells[row, columnDate].Value.ToString();
+                    var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
+                    var longValue = Convert.ToInt32(cells[row, columnLong].Value);
+                    var shortValue = Convert.ToInt32(cells[row, columnShort].Value);
+                    var netValue = invert ? -1 * (longValue - shortValue) : longValue - shortValue;
+
+                    // Fill string builder
+                    stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{netValue}{Environment.NewLine}");
+                }
+
+                return stringBuilder.ToString();
+            };
+
+            static LogicChange processingLogicChange = (cells, columnDate, columnLong, columnShort, asset, invert) =>
+            {
+                // For each line in Excel
+                int rowCount = cells.MaxDataRow;
+                int netValueBefore = 0, changeValue;
+                var resultList = new List<string>();
+
+                bool oldestDatarecord = true;
+                for (int row = rowCount; row >= 1; row--)
+                {
+                    var asssetString = cells[row, 0].Value.ToString();
+                    if (asssetString != asset)
+                    {
+                        continue;
+                    }
+
+                    var dateString = cells[row, columnDate].Value.ToString();
+                    var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
+                    var longValue = Convert.ToInt32(cells[row, columnLong].Value);
+                    var shortValue = Convert.ToInt32(cells[row, columnShort].Value);
+                    var netValue = -1 * (longValue - shortValue);
+
+                    if (oldestDatarecord)
+                    {
+                        netValueBefore = netValue;
+                        oldestDatarecord = false;
+                        continue;
+                    }
+                    else
+                    {
+                        changeValue = netValueBefore == 0 ? 0 : (int)Math.Round(100 * (double)(netValue - netValueBefore) / netValueBefore);
+                        netValueBefore = netValue;
+                    }
+
+                    // Fill list
+                    resultList.Add($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{changeValue}{Environment.NewLine}");
+                }
+
+                resultList.Reverse();
+                return String.Join(string.Empty, resultList);
+            };
 
             /// <summary>
             /// ProcessDealerInverted
@@ -94,46 +137,17 @@ namespace CotTools
             /// </summary>
             /// <param name="fileName"></param>
             /// <returns></returns>
-            internal static string ProcessDealerInvertedChange(string fileName)
+            internal static string ProcessDealerInvertedChange(string fileName, object asset)
             {
-                throw new NotImplementedException();
+                CftcFinancialsWorkbook workbook = new CftcFinancialsWorkbook(fileName);
 
-                //CftcFinancialsWorkbook workbook = new CftcFinancialsWorkbook(fileName);
-                //var colDate = workbook.IndexOfDate;
-                //var colLong = workbook.IndexOfDealerLong;
-                //var colShort = workbook.IndexOfDealerShort;
-                //stringBuilder.Clear();
+                var colDate = workbook.IndexOfDate;
+                var colLong = workbook.IndexOfDealerLong;
+                var colShort = workbook.IndexOfDealerShort;
+                stringBuilder.Clear();
 
-                //Logic logic = (cells, columnDate, columnLong, columnShort) =>
-                //{
-                //    // For each line in Excel
-                //    int rowCount = cells.MaxDataRow;
-                //    int netValueBefore = 0, changeValue;
-                //    for (int row = rowCount; row >= 1; row--)
-                //    {
-                //        var dateString = cells[row, columnDate].Value.ToString();
-                //        var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
-                //        var longValue = Convert.ToInt32(cells[row, columnLong].Value);
-                //        var shortValue = Convert.ToInt32(cells[row, columnShort].Value);
-                //        var netValue = -1 * (longValue - shortValue);
+                return processingLogicChange(workbook.FirstWorksheet.Cells, colDate, colLong, colShort, (string)asset, true);
 
-                //        if (row == rowCount)
-                //        {
-                //            netValueBefore = netValue;
-                //            continue;
-                //        }
-                //        else
-                //        {
-                //            changeValue = netValue - netValueBefore;
-                //        }
-
-                //        // Fill string builder
-                //        stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{changeValue}{Environment.NewLine}");
-                //    }
-                //    return stringBuilder.ToString();
-                //};
-
-                //return logic(workbook.FirstWorksheet.Cells, colDate, colLong, colShort);
             }
 
             /// <summary>

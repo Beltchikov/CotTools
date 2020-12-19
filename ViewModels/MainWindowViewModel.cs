@@ -23,6 +23,7 @@ namespace CotTools.ViewModels
         public static readonly DependencyProperty AssertSelectedProperty;
         public static readonly DependencyProperty FileNameProperty;
         public static readonly DependencyProperty ResultDealerInvertedProperty;
+        public static readonly DependencyProperty ResultDealerInvertedChangeProperty;
         public static readonly DependencyProperty ResultAssetManagerProperty;
         public static readonly DependencyProperty ResultLeveragedProperty;
 
@@ -40,6 +41,7 @@ namespace CotTools.ViewModels
             AssertSelectedProperty = DependencyProperty.Register("AssertSelected", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             FileNameProperty = DependencyProperty.Register("FileName", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             ResultDealerInvertedProperty = DependencyProperty.Register("ResultDealerInverted", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
+            ResultDealerInvertedChangeProperty = DependencyProperty.Register("ResultDealerInvertedChange", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             ResultAssetManagerProperty = DependencyProperty.Register("ResultAssetManager", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             ResultLeveragedProperty = DependencyProperty.Register("ResultLeveraged", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
         }
@@ -60,8 +62,9 @@ namespace CotTools.ViewModels
         private void ProcessAsset(object asset)
         {
             ResultDealerInverted = ExcelProcessor.Financials.ProcessDealerInverted(FileName, asset);
+            ResultDealerInvertedChange = ExcelProcessor.Financials.ProcessDealerInvertedChange(FileName, asset);
             ResultAssetManager = ExcelProcessor.Financials.ProcessAssetManager(FileName, asset);
-            ResultLeveraged= ExcelProcessor.Financials.ProcessLeveraged(FileName, asset);
+            ResultLeveraged = ExcelProcessor.Financials.ProcessLeveraged(FileName, asset);
         }
 
         /// <summary>
@@ -142,6 +145,15 @@ namespace CotTools.ViewModels
         {
             get { return (string)GetValue(ResultDealerInvertedProperty); }
             set { SetValue(ResultDealerInvertedProperty, value); }
+        }
+
+        /// <summary>
+        /// ResultDealerInvertedChange
+        /// </summary>
+        public string ResultDealerInvertedChange
+        {
+            get { return (string)GetValue(ResultDealerInvertedChangeProperty); }
+            set { SetValue(ResultDealerInvertedChangeProperty, value); }
         }
 
         /// <summary>
