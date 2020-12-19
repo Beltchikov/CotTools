@@ -163,7 +163,7 @@
                                      Background="Gainsboro"
                                      Margin="5,5,5,5"
                                      Height="80px"
-                                     Text="">
+                                     Text="{Binding ResultLeveraged}">
                     </TextBox>
 
                     <Label x:Name="lblLeveragedChanged" 

@@ -12,11 +12,13 @@ namespace CotTools
     {
         private Workbook _workbook;
 
-        public const string COLUMN_DATE = "Report_Date_as_MM_DD_YYYY";
-        public const string COLUMN_DEALER_LONG = "Dealer_Positions_Long_All";
-        public const string COLUMN_DEALER_SHORT = "Dealer_Positions_Short_All";
-        public const string COLUMN_ASSETMANAGER_LONG = "Asset_Mgr_Positions_Long_All";
-        public const string COLUMN_ASSETMANAGER_SHORT = "Asset_Mgr_Positions_Short_All";
+        private const string COLUMN_DATE = "Report_Date_as_MM_DD_YYYY";
+        private const string COLUMN_DEALER_LONG = "Dealer_Positions_Long_All";
+        private const string COLUMN_DEALER_SHORT = "Dealer_Positions_Short_All";
+        private const string COLUMN_ASSETMANAGER_LONG = "Asset_Mgr_Positions_Long_All";
+        private const string COLUMN_ASSETMANAGER_SHORT = "Asset_Mgr_Positions_Short_All";
+        private const string LEVERAGED_LONG = "Lev_Money_Positions_Long_All";
+        private const string LEVERAGED_SHORT = "Lev_Money_Positions_Short_All";
 
         /// <summary>
         /// CftcFinancialsWorkbook
@@ -33,6 +35,8 @@ namespace CotTools
         public int IndexOfDealerShort => IndexOfColumn(COLUMN_DEALER_SHORT);
         public int IndexOfAssetManagerLong => IndexOfColumn(COLUMN_ASSETMANAGER_LONG);
         public int IndexOfAssetManagerShort => IndexOfColumn(COLUMN_ASSETMANAGER_SHORT);
+        public int IndexOfLeveragedLong => IndexOfColumn(LEVERAGED_LONG);
+        public int IndexOfLeveragedShort => IndexOfColumn(LEVERAGED_SHORT);
 
         /// <summary>
         /// IndexOfColumn

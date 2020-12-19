@@ -136,6 +136,12 @@ namespace CotTools
                 //return logic(workbook.FirstWorksheet.Cells, colDate, colLong, colShort);
             }
 
+            /// <summary>
+            /// ProcessAssetManager
+            /// </summary>
+            /// <param name="fileName"></param>
+            /// <param name="asset"></param>
+            /// <returns></returns>
             internal static string ProcessAssetManager(string fileName, object asset)
             {
                 CftcFinancialsWorkbook workbook = new CftcFinancialsWorkbook(fileName);
@@ -153,9 +159,21 @@ namespace CotTools
                 throw new NotImplementedException();
             }
 
-            internal static string ProcessLeveraged(string fileName)
+            /// <summary>
+            /// ProcessLeveraged
+            /// </summary>
+            /// <param name="fileName"></param>
+            /// <returns></returns>
+            internal static string ProcessLeveraged(string fileName, object asset)
             {
-                throw new NotImplementedException();
+                CftcFinancialsWorkbook workbook = new CftcFinancialsWorkbook(fileName);
+
+                var colDate = workbook.IndexOfDate;
+                var colLong = workbook.IndexOfLeveragedLong;
+                var colShort = workbook.IndexOfLeveragedShort;
+                stringBuilder.Clear();
+
+                return processingLogic(workbook.FirstWorksheet.Cells, colDate, colLong, colShort, (string)asset, false);
             }
 
             internal static string ProcessLeveragedChange(string fileName)

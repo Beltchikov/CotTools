@@ -24,6 +24,7 @@ namespace CotTools.ViewModels
         public static readonly DependencyProperty FileNameProperty;
         public static readonly DependencyProperty ResultDealerInvertedProperty;
         public static readonly DependencyProperty ResultAssetManagerProperty;
+        public static readonly DependencyProperty ResultLeveragedProperty;
 
         public RelayCommand CommandRequestNavigate { get; set; }
         public RelayCommand CommandProcessAsset { get; set; }
@@ -40,6 +41,7 @@ namespace CotTools.ViewModels
             FileNameProperty = DependencyProperty.Register("FileName", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             ResultDealerInvertedProperty = DependencyProperty.Register("ResultDealerInverted", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             ResultAssetManagerProperty = DependencyProperty.Register("ResultAssetManager", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
+            ResultLeveragedProperty = DependencyProperty.Register("ResultLeveraged", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
         }
 
         /// <summary>
@@ -59,6 +61,7 @@ namespace CotTools.ViewModels
         {
             ResultDealerInverted = ExcelProcessor.Financials.ProcessDealerInverted(FileName, asset);
             ResultAssetManager = ExcelProcessor.Financials.ProcessAssetManager(FileName, asset);
+            ResultLeveraged= ExcelProcessor.Financials.ProcessLeveraged(FileName, asset);
         }
 
         /// <summary>
@@ -148,6 +151,15 @@ namespace CotTools.ViewModels
         {
             get { return (string)GetValue(ResultAssetManagerProperty); }
             set { SetValue(ResultAssetManagerProperty, value); }
+        }
+
+        /// <summary>
+        /// ResultLeveraged
+        /// </summary>
+        public string ResultLeveraged
+        {
+            get { return (string)GetValue(ResultLeveragedProperty); }
+            set { SetValue(ResultLeveragedProperty, value); }
         }
 
         /// <summary>
