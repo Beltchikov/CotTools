@@ -15,6 +15,8 @@ namespace CotTools
         public const string COLUMN_DATE = "Report_Date_as_MM_DD_YYYY";
         public const string COLUMN_DEALER_LONG = "Dealer_Positions_Long_All";
         public const string COLUMN_DEALER_SHORT = "Dealer_Positions_Short_All";
+        public const string COLUMN_ASSETMANAGER_LONG = "Asset_Mgr_Positions_Long_All";
+        public const string COLUMN_ASSETMANAGER_SHORT = "Asset_Mgr_Positions_Short_All";
 
         /// <summary>
         /// CftcFinancialsWorkbook
@@ -29,6 +31,8 @@ namespace CotTools
         public int IndexOfDate => IndexOfColumn(COLUMN_DATE);
         public int IndexOfDealerLong => IndexOfColumn(COLUMN_DEALER_LONG);
         public int IndexOfDealerShort => IndexOfColumn(COLUMN_DEALER_SHORT);
+        public int IndexOfAssetManagerLong => IndexOfColumn(COLUMN_ASSETMANAGER_LONG);
+        public int IndexOfAssetManagerShort => IndexOfColumn(COLUMN_ASSETMANAGER_SHORT);
 
         /// <summary>
         /// IndexOfColumn

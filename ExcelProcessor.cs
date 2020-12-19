@@ -44,7 +44,32 @@ namespace CotTools
         /// </summary>
         public partial class Financials : ConverterBase
         {
-            internal delegate string Logic(Cells cells, int columnDate, int columnLong, int columnShort);
+            internal delegate string Logic(Cells cells, int columnDate, int columnLong, int columnShort, string asset, bool invert);
+
+            static Logic processingLogic = (cells, columnDate, columnLong, columnShort, asset, invert) =>
+                {
+                    // For each line in Excel
+                    int rowCount = cells.MaxDataRow;
+                    for (int row = 0; row <= rowCount; row++)
+                    {
+                        var asssetString = cells[row, 0].Value.ToString();
+                        if (asssetString != asset)
+                        {
+                            continue;
+                        }
+
+                        var dateString = cells[row, columnDate].Value.ToString();
+                        var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
+                        var longValue = Convert.ToInt32(cells[row, columnLong].Value);
+                        var shortValue = Convert.ToInt32(cells[row, columnShort].Value);
+                        var netValue = invert  ? - 1 * (longValue - shortValue) : longValue - shortValue;
+
+                        // Fill string builder
+                        stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{netValue}{Environment.NewLine}");
+                    }
+
+                    return stringBuilder.ToString();
+                };
 
             /// <summary>
             /// ProcessDealerInverted
@@ -61,32 +86,7 @@ namespace CotTools
                 var colShort = workbook.IndexOfDealerShort;
                 stringBuilder.Clear();
 
-                Logic logic = (cells, columnDate, columnLong, columnShort) =>
-                {
-                    // For each line in Excel
-                    int rowCount = cells.MaxDataRow;
-                    for (int row = 0; row <= rowCount; row++)
-                    {
-                        var asssetString = cells[row, 0].Value.ToString();
-                        if (asssetString != (string)asset)
-                        {
-                            continue;
-                        }
-
-                        var dateString = cells[row, columnDate].Value.ToString();
-                        var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
-                        var longValue = Convert.ToInt32(cells[row, columnLong].Value);
-                        var shortValue = Convert.ToInt32(cells[row, columnShort].Value);
-                        var netValue = -1 * (longValue - shortValue);
-
-                        // Fill string builder
-                        stringBuilder.Append($"{date.ToString("dd.MM.yyyy")}{SEPARATOR}{netValue}{Environment.NewLine}");
-                    }
-
-                    return stringBuilder.ToString();
-                };
-
-                return logic(workbook.FirstWorksheet.Cells, colDate, colLong, colShort);
+                return processingLogic(workbook.FirstWorksheet.Cells, colDate, colLong, colShort, (string)asset, true);
             }
 
             /// <summary>
@@ -136,9 +136,16 @@ namespace CotTools
                 //return logic(workbook.FirstWorksheet.Cells, colDate, colLong, colShort);
             }
 
-            internal static string ProcessAssetManager(string fileName)
+            internal static string ProcessAssetManager(string fileName, object asset)
             {
-                throw new NotImplementedException();
+                CftcFinancialsWorkbook workbook = new CftcFinancialsWorkbook(fileName);
+
+                var colDate = workbook.IndexOfDate;
+                var colLong = workbook.IndexOfAssetManagerLong;
+                var colShort = workbook.IndexOfAssetManagerShort;
+                stringBuilder.Clear();
+
+                return processingLogic(workbook.FirstWorksheet.Cells, colDate, colLong, colShort, (string)asset, false);
             }
 
             internal static string ProcessAssetManagerChange(string fileName)
