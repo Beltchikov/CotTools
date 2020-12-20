@@ -25,7 +25,9 @@ namespace CotTools.ViewModels
         public static readonly DependencyProperty ResultDealerInvertedProperty;
         public static readonly DependencyProperty ResultDealerInvertedChangeProperty;
         public static readonly DependencyProperty ResultAssetManagerProperty;
+        public static readonly DependencyProperty ResultAssetManagerChangeProperty;
         public static readonly DependencyProperty ResultLeveragedProperty;
+        public static readonly DependencyProperty ResultLeveragedChangeProperty;
 
         public RelayCommand CommandRequestNavigate { get; set; }
         public RelayCommand CommandProcessAsset { get; set; }
@@ -43,8 +45,10 @@ namespace CotTools.ViewModels
             ResultDealerInvertedProperty = DependencyProperty.Register("ResultDealerInverted", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             ResultDealerInvertedChangeProperty = DependencyProperty.Register("ResultDealerInvertedChange", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             ResultAssetManagerProperty = DependencyProperty.Register("ResultAssetManager", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
+            ResultAssetManagerChangeProperty = DependencyProperty.Register("ResultAssetManagerChange", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
             ResultLeveragedProperty = DependencyProperty.Register("ResultLeveraged", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
-        }
+            ResultLeveragedChangeProperty = DependencyProperty.Register("ResultLeveragedChange", typeof(string), typeof(MainWindowViewModel), new PropertyMetadata(string.Empty));
+    }
 
         /// <summary>
         /// MainWindowViewModel
@@ -64,7 +68,9 @@ namespace CotTools.ViewModels
             ResultDealerInverted = ExcelProcessor.Financials.ProcessDealerInverted(FileName, asset);
             ResultDealerInvertedChange = ExcelProcessor.Financials.ProcessDealerInvertedChange(FileName, asset);
             ResultAssetManager = ExcelProcessor.Financials.ProcessAssetManager(FileName, asset);
+            ResultAssetManagerChange = ExcelProcessor.Financials.ProcessAssetManagerChange(FileName, asset);
             ResultLeveraged = ExcelProcessor.Financials.ProcessLeveraged(FileName, asset);
+            ResultLeveragedChange = ExcelProcessor.Financials.ProcessLeveragedChange(FileName, asset);
         }
 
         /// <summary>
@@ -166,12 +172,31 @@ namespace CotTools.ViewModels
         }
 
         /// <summary>
+        /// ResultAssetManagerChange
+        /// </summary>
+        public string ResultAssetManagerChange
+        {
+            get { return (string)GetValue(ResultAssetManagerChangeProperty); }
+            set { SetValue(ResultAssetManagerChangeProperty, value); }
+        }
+
+
+        /// <summary>
         /// ResultLeveraged
         /// </summary>
         public string ResultLeveraged
         {
             get { return (string)GetValue(ResultLeveragedProperty); }
             set { SetValue(ResultLeveragedProperty, value); }
+        }
+
+        /// <summary>
+        /// ResultLeveragedChange
+        /// </summary>
+        public string ResultLeveragedChange
+        {
+            get { return (string)GetValue(ResultLeveragedChangeProperty); }
+            set { SetValue(ResultLeveragedChangeProperty, value); }
         }
 
         /// <summary>

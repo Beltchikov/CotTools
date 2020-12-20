@@ -152,7 +152,7 @@
                                      Background="Gainsboro"
                                      Margin="5,5,5,5"
                                      Height="80px"
-                                     Text="">
+                                     Text="{Binding ResultAssetManagerChange}">
                     </TextBox>
 
                     <Label x:Name="lblLeveraged" 
@@ -174,7 +174,7 @@
                                      Background="Gainsboro"
                                      Margin="5,5,5,5"
                                      Height="80px"
-                                     Text="">
+                                     Text="{Binding ResultLeveragedChange}">
                     </TextBox>
                 </StackPanel>
             </ScrollViewer>

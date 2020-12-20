@@ -168,9 +168,22 @@ namespace CotTools
                 return processingLogic(workbook.FirstWorksheet.Cells, colDate, colLong, colShort, (string)asset, false);
             }
 
-            internal static string ProcessAssetManagerChange(string fileName)
+            /// <summary>
+            /// ProcessAssetManagerChange
+            /// </summary>
+            /// <param name="fileName"></param>
+            /// <param name="asset"></param>
+            /// <returns></returns>
+            internal static string ProcessAssetManagerChange(string fileName, object asset)
             {
-                throw new NotImplementedException();
+                CftcFinancialsWorkbook workbook = new CftcFinancialsWorkbook(fileName);
+
+                var colDate = workbook.IndexOfDate;
+                var colLong = workbook.IndexOfAssetManagerLong;
+                var colShort = workbook.IndexOfAssetManagerShort;
+                stringBuilder.Clear();
+
+                return processingLogicChange(workbook.FirstWorksheet.Cells, colDate, colLong, colShort, (string)asset, false);
             }
 
             /// <summary>
@@ -190,9 +203,22 @@ namespace CotTools
                 return processingLogic(workbook.FirstWorksheet.Cells, colDate, colLong, colShort, (string)asset, false);
             }
 
-            internal static string ProcessLeveragedChange(string fileName)
+            /// <summary>
+            /// ProcessLeveragedChange
+            /// </summary>
+            /// <param name="fileName"></param>
+            /// <param name="asset"></param>
+            /// <returns></returns>
+            internal static string ProcessLeveragedChange(string fileName, object asset)
             {
-                throw new NotImplementedException();
+                CftcFinancialsWorkbook workbook = new CftcFinancialsWorkbook(fileName);
+
+                var colDate = workbook.IndexOfDate;
+                var colLong = workbook.IndexOfLeveragedLong;
+                var colShort = workbook.IndexOfLeveragedShort;
+                stringBuilder.Clear();
+
+                return processingLogicChange(workbook.FirstWorksheet.Cells, colDate, colLong, colShort, (string)asset, false);
             }
 
             /// <summary>
