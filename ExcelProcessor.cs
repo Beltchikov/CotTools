@@ -45,8 +45,7 @@ namespace CotTools
         public partial class Financials : ConverterBase
         {
             internal delegate string Logic(Cells cells, int columnDate, int columnLong, int columnShort, string asset, bool invert);
-            internal delegate string LogicChange(Cells cells, int columnDate, int columnLong, int columnShort, string asset, bool invert);
-
+            
             static Logic processingLogic = (cells, columnDate, columnLong, columnShort, asset, invert) =>
             {
                 // For each line in Excel
@@ -72,7 +71,7 @@ namespace CotTools
                 return stringBuilder.ToString();
             };
 
-            static LogicChange processingLogicChange = (cells, columnDate, columnLong, columnShort, asset, invert) =>
+            static Logic processingLogicChange = (cells, columnDate, columnLong, columnShort, asset, invert) =>
             {
                 // For each line in Excel
                 int rowCount = cells.MaxDataRow;
