@@ -101,7 +101,7 @@ namespace CotTools
                     }
                     else
                     {
-                        changeValue = netValueBefore == 0 ? 0 : (int)Math.Round(100 * (double)(netValue - netValueBefore) / netValueBefore);
+                        changeValue = netValue - netValueBefore;
                         netValueBefore = netValue;
                     }
 
