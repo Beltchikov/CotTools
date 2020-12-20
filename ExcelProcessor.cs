@@ -91,7 +91,7 @@ namespace CotTools
                     var date = DateTime.ParseExact(dateString, "dd.MM.yyyy HH:mm:ss", null);
                     var longValue = Convert.ToInt32(cells[row, columnLong].Value);
                     var shortValue = Convert.ToInt32(cells[row, columnShort].Value);
-                    var netValue = -1 * (longValue - shortValue);
+                    var netValue = invert ? -1 * (longValue - shortValue) : longValue - shortValue;
 
                     if (oldestDatarecord)
                     {
